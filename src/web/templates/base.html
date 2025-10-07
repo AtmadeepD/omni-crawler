@@ -15,6 +15,32 @@
         .quality-medium { border-left: 4px solid #ffc107; }
         .quality-low { border-left: 4px solid #dc3545; }
         .loading { opacity: 0.6; pointer-events: none; }
+        
+        /* === ADD CLICKABLE ARTICLE STYLES HERE === */
+        .clickable-article {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid #dee2e6;
+        }
+        .clickable-article:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-color: #007bff;
+        }
+        .article-card .card-title {
+            color: #007bff;
+            transition: color 0.3s ease;
+        }
+        .article-card:hover .card-title {
+            color: #0056b3;
+        }
+        .article-meta {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        /* === END CLICKABLE ARTICLE STYLES === */
     </style>
 </head>
 <body>

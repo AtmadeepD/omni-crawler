@@ -10,6 +10,8 @@ from flask import Response
 import psycopg2
 from elasticsearch import Elasticsearch
 from decimal import Decimal
+from ..models.enhanced_article import EnhancedArticle
+import io
 
 def convert_decimals(obj):
     """
@@ -39,7 +41,7 @@ class DataExporter:
     def export_articles_csv(self, filters: Dict = None) -> Response:
         """Export articles to CSV format"""
         try:
-            articles = self._get_articles_for_export(filters)
+            articles = self.storage.get_enhanced_articles(limit=10000, filters=filters)
             
             if not articles:
                 return self._create_error_response("No articles found matching criteria")
@@ -76,7 +78,7 @@ class DataExporter:
     def export_articles_json(self, filters: Dict = None) -> Response:
         """Export articles to JSON format"""
         try:
-            articles = self._get_articles_for_export(filters)
+            articles = self.storage.get_enhanced_articles(limit=10000, filters=filters)
             
             if not articles:
                 return self._create_error_response("No articles found matching criteria")
@@ -190,6 +192,63 @@ class DataExporter:
         except Exception as e:
             logger.error(f"Full database dump failed: {e}")
             return self._create_error_response(f"Dump failed: {str(e)}")
+    
+    def export_enhanced_articles_csv(self, filters: Dict = None) -> Response:
+        """Export articles with enhanced fields"""
+        try:
+            articles = self.storage.get_enhanced_articles(limit=10000, filters=filters)
+            
+            # Convert to enhanced format for export
+            enhanced_data = []
+            for article in articles:
+                enhanced_article = EnhancedArticle.from_basic_article(article)
+                enhanced_data.append(enhanced_article.to_dict())
+            
+            # Create CSV with enhanced fields
+            csv_output = self._convert_to_enhanced_csv(enhanced_data)
+            
+            filename = f"enhanced_articles_export_{datetime.utcnow().strftime('%Y%m%d_%H%M%S')}.csv"
+            
+            return Response(
+                csv_output,
+                mimetype='text/csv',
+                headers={'Content-Disposition': f'attachment; filename={filename}'}
+            )
+            
+        except Exception as e:
+            logger.error(f"Enhanced CSV export failed: {e}")
+            return self._create_error_response(f"Export failed: {str(e)}")
+
+    def _convert_to_enhanced_csv(self, articles: List[Dict]) -> str:
+        """Convert enhanced articles to CSV format"""
+        if not articles:
+            return "No articles found"
+        
+        # Define the enhanced CSV columns
+        fieldnames = [
+            'article_id', 'title', 'url', 'domain', 'authors', 'category',
+            'quality_score', 'sentiment', 'content_length', 'processing_timestamp',
+            'publish_date', 'crawler_engine', 'summary', 'excerpt', 'keywords',
+            'entities', 'language', 'read_time', 'topics', 'confidence_score'
+        ]
+        
+        output = io.StringIO()
+        writer = csv.DictWriter(output, fieldnames=fieldnames)
+        writer.writeheader()
+        
+        for article in articles:
+            # Flatten some nested structures for CSV
+            row = {field: article.get(field, '') for field in fieldnames}
+            
+            # Handle nested structures
+            row['authors'] = '; '.join(article.get('authors', []))
+            row['keywords'] = '; '.join(article.get('keywords', []))
+            row['topics'] = '; '.join(article.get('topics', []))
+            row['sentiment'] = str(article.get('sentiment', {}).get('overall', 0))
+            
+            writer.writerow(row)
+        
+        return output.getvalue()
     
     def _get_articles_for_export(self, filters: Dict = None) -> List[Dict]:
         """Get articles for export with optional filtering and column checking"""
@@ -496,15 +555,3 @@ class DataExporter:
             mimetype='application/json',
             status=400
         )
-
-def convert_decimals(obj):
-    """
-    Convert Decimal objects to float for JSON serialization
-    """
-    if isinstance(obj, Decimal):
-        return float(obj)
-    elif isinstance(obj, dict):
-        return {k: convert_decimals(v) for k, v in obj.items()}
-    elif isinstance(obj, list):
-        return [convert_decimals(item) for item in obj]
-    return obj

@@ -1,8 +1,12 @@
+
 {% extends "base.html" %}
 
 {% block title %}Advanced Search - OmniCrawler{% endblock %}
 
 {% block content %}
+
+
+
 <div class="row mb-4">
     <div class="col">
         <h1><i class="fas fa-search"></i> Advanced Search</h1>
@@ -176,6 +180,21 @@ document.getElementById('search-form').addEventListener('submit', function(e) {
     performSearch();
 });
 
+function openArticleDetail(articleId) {
+    // Open article in new tab
+    const articleUrl = `/article/${articleId}`;
+    window.open(articleUrl, '_blank');
+}
+
+// Function to open original source URL
+function openOriginalSource(url, event) {
+    if (event) {
+        event.stopPropagation(); // Prevent triggering article detail
+    }
+    window.open(url, '_blank');
+}
+
+
 function performSearch(page = 1) {
     currentSearchPage = page;
     
@@ -233,7 +252,7 @@ function displaySearchResults(data) {
     const resultsContainer = document.getElementById('search-results');
     const resultsCount = document.getElementById('results-count');
     
-    resultsCount.textContent = data.total.toLocaleString();
+    resultsCount.textContent = Number(data.total || 0).toLocaleString();
     
     if (data.articles.length === 0) {
         resultsContainer.innerHTML = `
@@ -268,12 +287,19 @@ function displaySearchResults(data) {
             contentHtml = article.highlight.content.join('...');
         }
 
+        // === MODIFIED: Make the entire card clickable ===
         resultsHtml += `
-            <div class="card mb-3 ${qualityClass}">
+            <div class="card mb-3 clickable-article ${qualityClass}" onclick="openArticleDetail('${article.id}')">
                 <div class="card-body">
-                    <h5 class="card-title">
-                        <a href="${article.url}" target="_blank">${titleHtml}</a>
-                    </h5>
+                    <div class="d-flex justify-content-between align-items-start mb-2">
+                        <h5 class="card-title mb-0 flex-grow-1">
+                            ${titleHtml}
+                        </h5>
+                        <button class="btn btn-sm btn-outline-primary ms-2" 
+                                onclick="openOriginalSource('${article.url}', event)">
+                            <i class="fas fa-external-link-alt"></i>
+                        </button>
+                    </div>
                     
                     <div class="article-meta mb-2">
                         <span class="badge bg-secondary">${article.domain}</span>
@@ -309,11 +335,8 @@ function displaySearchResults(data) {
                     ` : ''}
 
                     <div class="mt-2">
-                        <a href="${article.url}" target="_blank" class="btn btn-sm btn-primary">
-                            <i class="fas fa-external-link-alt"></i> Read Full Article
-                        </a>
-                        <span class="text-muted ms-2">
-                            <i class="fas fa-chart-bar"></i> Score: ${article.score.toFixed(2)}
+                        <span class="text-muted">
+                            <i class="fas fa-chart-bar"></i> Score: ${article.score?.toFixed(2) || 'N/A'}
                         </span>
                     </div>
                 </div>

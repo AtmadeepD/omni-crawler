@@ -29,7 +29,7 @@ logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
     handlers=[
         logging.FileHandler('web_dashboard.log', encoding='utf-8'),
-        logging.StreamHandler(sys.stdout)  # Use stdout for better encoding
+        logging.StreamHandler(sys.stdout)
     ]
 )
 logger = logging.getLogger(__name__)
@@ -51,24 +51,12 @@ class WebDashboard:
         # Check database schema on startup
         self._check_database_schema()
 
-        # Integrate advanced search and monitoring
+        # Initialize components
         self.search_engine = AdvancedSearchEngine()
         self.system_monitor = SystemMonitor()
-        self.system_monitor.start_monitoring(interval=60)  # Monitor every 60 seconds
-
-        # Integrate alert engine and data exporter
+        self.system_monitor.start_monitoring(interval=60)
         self.alert_engine = AlertEngine()
         self.data_exporter = DataExporter()
-
-        # Configure basic email alerts (optional)
-        # self.alert_engine.configure_smtp(
-        #     smtp_server='smtp.gmail.com',
-        #     smtp_port=587,
-        #     username='your-email@gmail.com',
-        #     password='your-app-password',
-        #     from_email='alerts@omnicrawler.com',
-        #     to_email='admin@yourcompany.com'
-        # )
 
     def _load_config(self, config_path):
         """Load configuration with fallbacks"""
@@ -111,7 +99,7 @@ class WebDashboard:
             return generate_latest()
     
     def _setup_routes(self):
-        """Setup all application routes"""
+        """Setup all application routes with enhanced article functionality"""
         
         @self.app.before_request
         def before_request():
@@ -119,7 +107,6 @@ class WebDashboard:
         
         @self.app.after_request
         def after_request(response):
-            # Metrics tracking
             latency = time.time() - request.start_time
             REQUEST_LATENCY.observe(latency)
             REQUEST_COUNT.labels(
@@ -135,7 +122,7 @@ class WebDashboard:
             
             return response
         
-        # Main routes
+        # ===== MAIN PAGES =====
         @self.app.route('/')
         def dashboard():
             ACTIVE_USERS.inc()
@@ -161,9 +148,15 @@ class WebDashboard:
         def export_page():
             return render_template('export.html')
         
+        # ===== NEW: ARTICLE DETAIL PAGE =====
+        @self.app.route('/article/<article_id>')
+        def article_detail_page(article_id):
+            """Article detail page - Renders the full article view"""
+            return render_template('article_detail.html', article_id=article_id)
+        
+        # ===== API ENDPOINTS =====
         @self.app.route('/api/health')
         def health_check():
-            """Health check endpoint"""
             health_status = {
                 'status': 'healthy',
                 'timestamp': datetime.utcnow().isoformat(),
@@ -172,9 +165,112 @@ class WebDashboard:
             }
             return jsonify(health_status)
         
+        # ===== NEW: COMPREHENSIVE ARTICLE DETAIL ENDPOINT =====
+        @self.app.route('/api/articles/<article_id>')
+        def get_article_detail(article_id):
+            """Get detailed article information"""
+            try:
+                logger.info(f"Fetching article details for ID: {article_id}")
+                
+                conn = self._get_db_connection()
+                cur = conn.cursor()
+                
+                # First, let's see what columns we actually have
+                cur.execute("""
+                    SELECT column_name 
+                    FROM information_schema.columns 
+                    WHERE table_name = 'articles'
+                """)
+                available_columns = [row[0] for row in cur.fetchall()]
+                logger.info(f"Available columns: {available_columns}")
+                
+                # Build the query with only columns that exist
+                select_columns = []
+                if 'article_id' in available_columns:
+                    select_columns.append('article_id')
+                if 'title' in available_columns:
+                    select_columns.append('title')
+                if 'url' in available_columns:
+                    select_columns.append('url')
+                if 'domain' in available_columns:
+                    select_columns.append('domain')
+                if 'authors' in available_columns:
+                    select_columns.append('authors')
+                if 'quality_score' in available_columns:
+                    select_columns.append('quality_score')
+                if 'category' in available_columns:
+                    select_columns.append('category')
+                if 'sentiment_label' in available_columns:
+                    select_columns.append('sentiment_label')
+                if 'processing_timestamp' in available_columns:
+                    select_columns.append('processing_timestamp')
+                if 'content_length' in available_columns:
+                    select_columns.append('content_length')
+                if 'content' in available_columns:
+                    select_columns.append('content')
+                
+                if not select_columns:
+                    return jsonify({'error': 'No valid columns found in articles table'}), 500
+                
+                columns_str = ', '.join(select_columns)
+                query = f"SELECT {columns_str} FROM articles WHERE article_id = %s"
+                
+                logger.info(f"Executing: {query}")
+                cur.execute(query, (article_id,))
+                
+                row = cur.fetchone()
+                
+                if not row:
+                    return jsonify({'error': 'Article not found'}), 404
+                
+                # Build the article object
+                article = {'id': article_id}
+                for i, col in enumerate(select_columns):
+                    value = row[i]
+                    
+                    # Handle different data types
+                    if isinstance(value, datetime):
+                        article[col] = value.isoformat() if value else None
+                    elif col == 'authors' and value and isinstance(value, list):
+                        article[col] = value
+                    elif col == 'authors' and value and isinstance(value, str):
+                        # Try to parse string as array
+                        try:
+                            article[col] = json.loads(value)
+                        except:
+                            article[col] = [value]
+                    else:
+                        article[col] = value
+                
+                # Map column names to expected frontend names
+                if 'sentiment_label' in article:
+                    article['sentiment'] = article.pop('sentiment_label')
+                if 'processing_timestamp' in article:
+                    article['processed_at'] = article.pop('processing_timestamp')
+                
+                # Set defaults for missing fields
+                if 'content' not in article:
+                    article['content'] = 'No content available'
+                if 'quality_score' not in article:
+                    article['quality_score'] = 0
+                if 'sentiment' not in article:
+                    article['sentiment'] = 'neutral'
+                if 'reading_time' not in article:
+                    article['reading_time'] = 5
+                
+                logger.info(f"Successfully loaded article: {article_id}")
+                
+                cur.close()
+                conn.close()
+                
+                return jsonify(article)
+                
+            except Exception as e:
+                logger.error(f"Article detail error for {article_id}: {str(e)}", exc_info=True)
+                return jsonify({'error': f'Database error: {str(e)}'}), 500
+        
         @self.app.route('/api/stats/overview')
         def stats_overview():
-            """Comprehensive system statistics"""
             try:
                 stats = self._get_system_stats()
                 return jsonify(stats)
@@ -184,7 +280,6 @@ class WebDashboard:
         
         @self.app.route('/api/articles')
         def get_articles():
-            """Get paginated articles with filtering"""
             try:
                 page = request.args.get('page', 1, type=int)
                 per_page = min(request.args.get('per_page', 20, type=int), 100)
@@ -211,7 +306,6 @@ class WebDashboard:
         
         @self.app.route('/api/articles/search')
         def search_articles():
-            """Search articles with Elasticsearch"""
             try:
                 query = request.args.get('q', '')
                 size = min(request.args.get('size', 20, type=int), 50)
@@ -229,9 +323,9 @@ class WebDashboard:
                 logger.error(f"Search articles error: {e}")
                 return jsonify({'error': 'Search service unavailable'}), 503
         
+        # ===== EXISTING ANALYTICS ENDPOINTS =====
         @self.app.route('/api/analytics/categories')
         def analytics_categories():
-            """Category distribution analytics"""
             try:
                 data = self._get_category_analytics()
                 return jsonify(data)
@@ -241,7 +335,6 @@ class WebDashboard:
         
         @self.app.route('/api/analytics/sentiment')
         def analytics_sentiment():
-            """Sentiment analysis over time"""
             try:
                 data = self._get_sentiment_analytics()
                 return jsonify(data)
@@ -251,7 +344,6 @@ class WebDashboard:
         
         @self.app.route('/api/analytics/domains')
         def analytics_domains():
-            """Domain performance analytics"""
             try:
                 data = self._get_domain_analytics()
                 return jsonify(data)
@@ -259,9 +351,9 @@ class WebDashboard:
                 logger.error(f"Domain analytics error: {e}")
                 return jsonify({'error': 'Analytics service unavailable'}), 503
         
+        # ===== EXISTING ADVANCED FEATURES =====
         @self.app.route('/api/search/advanced')
         def advanced_search():
-            """Advanced search endpoint"""
             try:
                 search_params = {
                     'query': request.args.get('q', ''),
@@ -288,7 +380,6 @@ class WebDashboard:
 
         @self.app.route('/api/monitoring/health')
         def monitoring_health():
-            """System health status"""
             try:
                 health = self.system_monitor.get_health_status()
                 return jsonify(health)
@@ -298,7 +389,6 @@ class WebDashboard:
 
         @self.app.route('/api/monitoring/metrics')
         def monitoring_metrics():
-            """Current system metrics"""
             try:
                 metrics = self.system_monitor.get_current_metrics()
                 return jsonify(metrics)
@@ -308,7 +398,6 @@ class WebDashboard:
 
         @self.app.route('/api/monitoring/alerts')
         def monitoring_alerts():
-            """Get recent system alerts"""
             try:
                 alerts = []
                 alert_data = self.system_monitor.redis.lrange('alerts:recent', 0, 49)
@@ -323,10 +412,10 @@ class WebDashboard:
             except Exception as e:
                 logger.error(f"Alerts fetch error: {e}")
                 return jsonify({'alerts': []})
+            
 
         @self.app.route('/api/alerts')
         def get_alerts():
-            """Get recent alerts"""
             try:
                 limit = request.args.get('limit', 50, type=int)
                 alerts = self.alert_engine.get_recent_alerts(limit)
@@ -337,7 +426,6 @@ class WebDashboard:
 
         @self.app.route('/api/alerts/stats')
         def get_alert_stats():
-            """Get alert statistics"""
             try:
                 stats = self.alert_engine.get_alert_stats()
                 return jsonify(stats)
@@ -347,7 +435,6 @@ class WebDashboard:
 
         @self.app.route('/api/alerts/<alert_id>/acknowledge', methods=['POST'])
         def acknowledge_alert(alert_id):
-            """Acknowledge an alert"""
             try:
                 self.alert_engine.acknowledge_alert(alert_id)
                 return jsonify({'status': 'acknowledged'})
@@ -357,7 +444,6 @@ class WebDashboard:
 
         @self.app.route('/api/export/articles/csv')
         def export_articles_csv():
-            """Export articles as CSV"""
             try:
                 filters = {
                     'domain': request.args.get('domain'),
@@ -374,7 +460,6 @@ class WebDashboard:
 
         @self.app.route('/api/export/articles/json')
         def export_articles_json():
-            """Export articles as JSON"""
             try:
                 filters = {
                     'domain': request.args.get('domain'),
@@ -389,25 +474,6 @@ class WebDashboard:
                 logger.error(f"JSON export error: {e}")
                 return jsonify({'error': str(e)}), 500
 
-        @self.app.route('/api/export/analytics')
-        def export_analytics():
-            """Export analytics report"""
-            try:
-                days = request.args.get('days', 7, type=int)
-                return self.data_exporter.export_analytics_report(days)
-            except Exception as e:
-                logger.error(f"Analytics export error: {e}")
-                return jsonify({'error': str(e)}), 500
-
-        @self.app.route('/api/export/full-dump')
-        def export_full_dump():
-            """Export full database dump"""
-            try:
-                return self.data_exporter.export_full_database_dump()
-            except Exception as e:
-                logger.error(f"Full dump export error: {e}")
-                return jsonify({'error': str(e)}), 500
-
         @self.app.errorhandler(404)
         def not_found(error):
             return jsonify({'error': 'Endpoint not found'}), 404
@@ -420,6 +486,58 @@ class WebDashboard:
         @self.app.errorhandler(429)
         def ratelimit_handler(e):
             return jsonify({'error': 'Rate limit exceeded'}), 429
+        
+        # ===== DEBUG ENDPOINTS =====
+        @self.app.route('/api/debug/schema')
+        def debug_schema():
+            """Debug endpoint to check database schema"""
+            try:
+                conn = self._get_db_connection()
+                cur = conn.cursor()
+                
+                # Get all columns from articles table
+                cur.execute("""
+                    SELECT column_name, data_type, is_nullable
+                    FROM information_schema.columns 
+                    WHERE table_name = 'articles'
+                    ORDER BY ordinal_position
+                """)
+                columns = cur.fetchall()
+                
+                # Get sample article to see data structure
+                cur.execute("SELECT article_id, title FROM articles LIMIT 1")
+                sample = cur.fetchone()
+                
+                cur.close()
+                conn.close()
+                
+                return jsonify({
+                    'columns': [{'name': col[0], 'type': col[1], 'nullable': col[2]} for col in columns],
+                    'sample_article': {'id': sample[0], 'title': sample[1]} if sample else None
+                })
+                
+            except Exception as e:
+                return jsonify({'error': str(e)}), 500
+
+        @self.app.route('/api/debug/articles')
+        def debug_articles():
+            """Get list of available article IDs for testing"""
+            try:
+                conn = self._get_db_connection()
+                cur = conn.cursor()
+                
+                cur.execute("SELECT article_id, title FROM articles LIMIT 10")
+                articles = cur.fetchall()
+                
+                cur.close()
+                conn.close()
+                
+                return jsonify({
+                    'articles': [{'id': row[0], 'title': row[1]} for row in articles]
+                })
+                
+            except Exception as e:
+                return jsonify({'error': str(e)}), 500
     
     def _get_db_connection(self):
         """Get PostgreSQL connection with error handling"""
@@ -450,7 +568,6 @@ class WebDashboard:
         """Check health of all dependent services"""
         services = {}
         
-        # Check PostgreSQL
         try:
             conn = self._get_db_connection()
             with conn.cursor() as cur:
@@ -460,15 +577,13 @@ class WebDashboard:
         except Exception as e:
             services['postgresql'] = f'unhealthy: {str(e)}'
         
-        # Check Elasticsearch
         try:
             es = self._get_es_connection()
             services['elasticsearch'] = 'healthy'
         except Exception as e:
             services['elasticsearch'] = f'unhealthy: {str(e)}'
         
-        # Check Redis (simplified)
-        services['redis'] = 'healthy'  # We'll implement proper check
+        services['redis'] = 'healthy'
         
         return services
     
@@ -479,7 +594,6 @@ class WebDashboard:
         
         stats = {}
         
-        # Basic counts
         cur.execute("SELECT COUNT(*) FROM articles")
         stats['total_articles'] = cur.fetchone()[0]
         ARTICLE_COUNT.set(stats['total_articles'])
@@ -487,7 +601,6 @@ class WebDashboard:
         cur.execute("SELECT COUNT(DISTINCT domain) FROM articles")
         stats['unique_domains'] = cur.fetchone()[0]
         
-        # Quality distribution
         cur.execute("""
             SELECT 
                 AVG(quality_score) as avg_quality,
@@ -504,14 +617,12 @@ class WebDashboard:
             'high_quality_percentage': round((quality_stats[3] / stats['total_articles'] * 100), 1) if stats['total_articles'] > 0 else 0
         }
         
-        # Recent activity
         cur.execute("""
             SELECT COUNT(*) FROM articles 
             WHERE processing_timestamp >= NOW() - INTERVAL '1 hour'
         """)
         stats['recent_articles_1h'] = cur.fetchone()[0]
         
-        # Category distribution
         cur.execute("""
             SELECT category, COUNT(*) as count 
             FROM articles 
@@ -526,11 +637,10 @@ class WebDashboard:
         return stats
     
     def _get_articles_paginated(self, page, per_page, domain, category, min_quality):
-        """Get paginated articles with filtering"""
+        """Get paginated articles with filtering - ENHANCED for clickable articles"""
         conn = self._get_db_connection()
         cur = conn.cursor()
         
-        # Build WHERE clause
         conditions = ["1=1"]
         params = []
         
@@ -548,18 +658,16 @@ class WebDashboard:
         
         where_clause = " AND ".join(conditions)
         
-        # Get total count
         count_query = f"SELECT COUNT(*) FROM articles WHERE {where_clause}"
         cur.execute(count_query, params)
         total = cur.fetchone()[0]
         
-        # Get paginated results
         offset = (page - 1) * per_page
         query = f"""
             SELECT 
                 article_id, title, url, domain, authors, 
                 quality_score, category, sentiment_label,
-                processing_timestamp, content_length
+                processing_timestamp, content_length, summary
             FROM articles 
             WHERE {where_clause}
             ORDER BY processing_timestamp DESC 
@@ -581,7 +689,10 @@ class WebDashboard:
                 'category': row[6],
                 'sentiment': row[7],
                 'processed_at': row[8].isoformat() if row[8] else None,
-                'content_length': row[9] or 0
+                'content_length': row[9] or 0,
+                'summary': row[10] or '',
+                # Add preview for listings
+                'preview': (row[10] or '')[:150] + '...' if row[10] and len(row[10]) > 150 else (row[10] or 'No summary available')
             })
         
         cur.close()
@@ -590,7 +701,7 @@ class WebDashboard:
         return articles, total
     
     def _search_articles(self, query, size):
-        """Search articles using Elasticsearch"""
+        """Search articles using Elasticsearch - ENHANCED for clickable articles"""
         es = self._get_es_connection()
         
         response = es.search(
@@ -632,14 +743,17 @@ class WebDashboard:
                 'category': source.get('category', 'general'),
                 'sentiment': source.get('sentiment', {}).get('label', 'neutral'),
                 'content_preview': source.get('content', '')[:200] + '...',
+                'summary': source.get('summary', ''),
                 'score': hit['_score'],
-                'highlight': highlight
+                'highlight': highlight,
+                # Add preview for listings
+                'preview': source.get('summary', source.get('content', '')[:150] + '...')
             })
         
         return articles
     
     def _get_category_analytics(self):
-        """Get category distribution analytics with robust error handling"""
+        """Get category distribution analytics"""
         try:
             conn = self._get_db_connection()
             cur = conn.cursor()
@@ -664,9 +778,7 @@ class WebDashboard:
             cur.close()
             conn.close()
             
-            # Create Plotly chart with better error handling
             if not categories:
-                # Return empty chart if no data
                 fig = go.Figure()
                 fig.update_layout(
                     title='No Category Data Available',
@@ -704,7 +816,6 @@ class WebDashboard:
             
         except Exception as e:
             logger.error(f"Category analytics error: {e}")
-            # Return error chart
             fig = go.Figure()
             fig.update_layout(
                 title='Error Loading Category Data',
@@ -720,21 +831,10 @@ class WebDashboard:
             }
 
     def _get_sentiment_analytics(self):
-        """Get sentiment analysis over time with robust error handling"""
+        """Get sentiment analysis over time"""
         try:
             conn = self._get_db_connection()
             cur = conn.cursor()
-            
-            # Check if sentiment_label column exists
-            cur.execute("""
-                SELECT column_name 
-                FROM information_schema.columns 
-                WHERE table_name='articles' AND column_name='sentiment_label'
-            """)
-            
-            if not cur.fetchone():
-                logger.warning("sentiment_label column not found, using default data")
-                return self._get_default_sentiment_analytics()
             
             cur.execute("""
                 SELECT 
@@ -747,7 +847,6 @@ class WebDashboard:
                 ORDER BY date, sentiment_label
             """)
             
-            # Process data for time series
             data = {}
             for row in cur.fetchall():
                 date = row[0].isoformat()
@@ -759,19 +858,16 @@ class WebDashboard:
                 
                 data[date][sentiment] = count
             
-            # Fill missing dates with zeros
             dates = sorted(data.keys())
             if not dates:
                 return self._get_default_sentiment_analytics()
                 
-            # Ensure we have all sentiment types for each date
             all_sentiments = ['positive', 'negative', 'neutral']
             for date in dates:
                 for sentiment in all_sentiments:
                     if sentiment not in data[date]:
                         data[date][sentiment] = 0
             
-            # Convert to lists for charting
             positive = [data[date]['positive'] for date in dates]
             negative = [data[date]['negative'] for date in dates]
             neutral = [data[date]['neutral'] for date in dates]
@@ -779,7 +875,6 @@ class WebDashboard:
             cur.close()
             conn.close()
             
-            # Create stacked area chart
             fig = go.Figure()
             fig.add_trace(go.Scatter(name='Positive', x=dates, y=positive, stackgroup='one', 
                                     line=dict(color='green'), fillcolor='rgba(0,255,0,0.3)'))
@@ -812,10 +907,7 @@ class WebDashboard:
     def _get_default_sentiment_analytics(self, error_msg=None):
         """Return default sentiment analytics when data is unavailable"""
         fig = go.Figure()
-        if error_msg:
-            title = f'Error: {error_msg}'
-        else:
-            title = 'No Sentiment Data Available'
+        title = f'Error: {error_msg}' if error_msg else 'No Sentiment Data Available'
             
         fig.update_layout(
             title=title,
@@ -831,51 +923,24 @@ class WebDashboard:
         }
 
     def _get_domain_analytics(self):
-        """Get domain performance analytics with robust error handling"""
+        """Get domain performance analytics"""
         try:
             conn = self._get_db_connection()
             cur = conn.cursor()
             
-            # Check if required columns exist
             cur.execute("""
-                SELECT column_name 
-                FROM information_schema.columns 
-                WHERE table_name='articles' AND column_name IN ('sentiment_label', 'content_length')
+                SELECT 
+                    domain,
+                    COUNT(*) as article_count,
+                    AVG(quality_score) as avg_quality,
+                    AVG(content_length) as avg_length,
+                    COUNT(CASE WHEN sentiment_label = 'positive' THEN 1 END) as positive_count
+                FROM articles 
+                GROUP BY domain
+                HAVING COUNT(*) >= 1
+                ORDER BY article_count DESC
+                LIMIT 15
             """)
-            columns = [row[0] for row in cur.fetchall()]
-            
-            has_sentiment = 'sentiment_label' in columns
-            has_content_length = 'content_length' in columns
-            
-            if has_sentiment and has_content_length:
-                query = """
-                    SELECT 
-                        domain,
-                        COUNT(*) as article_count,
-                        AVG(quality_score) as avg_quality,
-                        AVG(content_length) as avg_length,
-                        COUNT(CASE WHEN sentiment_label = 'positive' THEN 1 END) as positive_count
-                    FROM articles 
-                    GROUP BY domain
-                    HAVING COUNT(*) >= 1
-                    ORDER BY article_count DESC
-                    LIMIT 15
-                """
-            else:
-                # Fallback query without sentiment and content_length
-                query = """
-                    SELECT 
-                        domain,
-                        COUNT(*) as article_count,
-                        AVG(quality_score) as avg_quality
-                    FROM articles 
-                    GROUP BY domain
-                    HAVING COUNT(*) >= 1
-                    ORDER BY article_count DESC
-                    LIMIT 15
-                """
-            
-            cur.execute(query)
             
             domains = []
             article_counts = []
@@ -887,17 +952,9 @@ class WebDashboard:
                 domains.append(row[0])
                 article_counts.append(row[1])
                 avg_qualities.append(float(round(row[2] or 0, 1)))
-                
-                if has_content_length:
-                    avg_lengths.append(int(row[3] or 0))
-                else:
-                    avg_lengths.append(0)
-                    
-                if has_sentiment:
-                    positivity_rate = (row[4] / row[1] * 100) if row[1] > 0 else 0
-                    positivity_rates.append(float(round(positivity_rate, 1)))
-                else:
-                    positivity_rates.append(0)
+                avg_lengths.append(int(row[3] or 0))
+                positivity_rate = (row[4] / row[1] * 100) if row[1] > 0 else 0
+                positivity_rates.append(float(round(positivity_rate, 1)))
             
             cur.close()
             conn.close()
@@ -905,7 +962,6 @@ class WebDashboard:
             if not domains:
                 return self._get_default_domain_analytics("No domain data available")
             
-            # Create bubble chart
             fig = go.Figure(data=[go.Scatter(
                 x=domains,
                 y=avg_qualities,
@@ -950,10 +1006,7 @@ class WebDashboard:
     def _get_default_domain_analytics(self, error_msg=None):
         """Return default domain analytics when data is unavailable"""
         fig = go.Figure()
-        if error_msg:
-            title = f'Error: {error_msg}'
-        else:
-            title = 'No Domain Data Available'
+        title = f'Error: {error_msg}' if error_msg else 'No Domain Data Available'
             
         fig.update_layout(
             title=title,
@@ -974,7 +1027,6 @@ class WebDashboard:
             conn = self._get_db_connection()
             cur = conn.cursor()
             
-            # Check for required columns
             cur.execute("""
                 SELECT column_name, data_type 
                 FROM information_schema.columns 
@@ -1007,6 +1059,8 @@ class WebDashboard:
         logger.info(f"🚀 Starting OmniCrawler Web Dashboard on {host}:{port}")
         self.app.run(host=host, port=port, debug=debug)
 
+
+
 def create_app():
     """Factory function for application creation"""
     return WebDashboard().app
@@ -1014,3 +1068,5 @@ def create_app():
 if __name__ == '__main__':
     dashboard = WebDashboard()
     dashboard.run()
+
+    

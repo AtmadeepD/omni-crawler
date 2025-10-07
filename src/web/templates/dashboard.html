@@ -1,54 +1,69 @@
 {% extends "base.html" %}
 
-{% block title %}Analytics - OmniCrawler{% endblock %}
+{% block title %}Dashboard - OmniCrawler{% endblock %}
 
 {% block content %}
 <div class="row mb-4">
     <div class="col">
-        <h1><i class="fas fa-chart-bar"></i> Analytics</h1>
-        <p class="text-muted">Deep insights into your news aggregation data</p>
+        <h1><i class="fas fa-tachometer-alt"></i> Dashboard</h1>
+        <p class="text-muted">Real-time overview of your news aggregation system</p>
     </div>
 </div>
 
+<!-- Stats Overview -->
+<div class="row mb-4">
+    <div class="col-md-3">
+        <div class="card stats-card">
+            <div class="card-body text-center">
+                <h3 class="text-primary" id="total-articles">0</h3>
+                <p class="text-muted mb-0">Total Articles</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card stats-card">
+            <div class="card-body text-center">
+                <h3 class="text-success" id="unique-domains">0</h3>
+                <p class="text-muted mb-0">Unique Domains</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card stats-card">
+            <div class="card-body text-center">
+                <h3 class="text-warning" id="avg-quality">0</h3>
+                <p class="text-muted mb-0">Avg Quality</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card stats-card">
+            <div class="card-body text-center">
+                <h3 class="text-info" id="recent-articles">0</h3>
+                <p class="text-muted mb-0">Last Hour</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Recent Articles -->
 <div class="row">
-    <!-- Category Distribution -->
-    <div class="col-lg-6 mb-4">
+    <div class="col-12">
         <div class="card">
             <div class="card-header">
                 <h5 class="card-title mb-0">
-                    <i class="fas fa-chart-pie"></i> Category Distribution
+                    <i class="fas fa-newspaper"></i> Recent Articles
                 </h5>
             </div>
             <div class="card-body">
-                <div id="category-chart"></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Sentiment Analysis -->
-    <div class="col-lg-6 mb-4">
-        <div class="card">
-            <div class="card-header">
-                <h5 class="card-title mb-0">
-                    <i class="fas fa-smile"></i> Sentiment Analysis
-                </h5>
-            </div>
-            <div class="card-body">
-                <div id="sentiment-chart"></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Domain Performance -->
-    <div class="col-12 mb-4">
-        <div class="card">
-            <div class="card-header">
-                <h5 class="card-title mb-0">
-                    <i class="fas fa-globe"></i> Domain Performance
-                </h5>
-            </div>
-            <div class="card-body">
-                <div id="domain-chart"></div>
+                <div id="recent-articles-container">
+                    <div class="text-center py-4">
+                        <div class="spinner-border" role="status">
+                            <span class="visually-hidden">Loading articles...</span>
+                        </div>
+                        <p class="mt-2">Loading recent articles...</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -57,49 +72,111 @@
 
 {% block scripts %}
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    loadCategoryAnalytics();
-    loadSentimentAnalytics();
-    loadDomainAnalytics();
-});
-
-function loadCategoryAnalytics() {
-    fetch('/api/analytics/categories')
-        .then(response => response.json())
-        .then(data => {
-            Plotly.newPlot('category-chart', data.chart.data, data.chart.layout);
-        })
-        .catch(error => {
-            console.error('Error loading category analytics:', error);
-            document.getElementById('category-chart').innerHTML = 
-                '<p class="text-muted">Error loading category data</p>';
-        });
+// Function to open article detail page
+function openArticleDetail(articleId) {
+    // Open article in new tab
+    const articleUrl = `/article/${articleId}`;
+    window.open(articleUrl, '_blank');
 }
 
-function loadSentimentAnalytics() {
-    fetch('/api/analytics/sentiment')
-        .then(response => response.json())
-        .then(data => {
-            Plotly.newPlot('sentiment-chart', data.chart.data, data.chart.layout);
-        })
-        .catch(error => {
-            console.error('Error loading sentiment analytics:', error);
-            document.getElementById('sentiment-chart').innerHTML = 
-                '<p class="text-muted">Error loading sentiment data</p>';
-        });
+// Function to open original source URL
+function openOriginalSource(url, event) {
+    if (event) {
+        event.stopPropagation(); // Prevent triggering article detail
+    }
+    window.open(url, '_blank');
 }
 
-function loadDomainAnalytics() {
-    fetch('/api/analytics/domains')
-        .then(response => response.json())
-        .then(data => {
-            Plotly.newPlot('domain-chart', data.chart.data, data.chart.layout);
-        })
-        .catch(error => {
-            console.error('Error loading domain analytics:', error);
-            document.getElementById('domain-chart').innerHTML = 
-                '<p class="text-muted">Error loading domain data</p>';
-        });
+// Enhanced article rendering function
+function renderArticleCard(article) {
+    const sentimentIcon = {
+        'positive': 'fa-smile text-success',
+        'negative': 'fa-frown text-danger',
+        'neutral': 'fa-meh text-warning'
+    }[article.sentiment] || 'fa-meh text-warning';
+
+    return `
+        <div class="article-card card mb-3 clickable-article" onclick="openArticleDetail('${article.id}')">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-start mb-2">
+                    <h5 class="card-title mb-0 flex-grow-1">${article.title || 'No Title'}</h5>
+                    <button class="btn btn-sm btn-outline-primary ms-2" 
+                            onclick="openOriginalSource('${article.url}', event)">
+                        <i class="fas fa-external-link-alt"></i>
+                    </button>
+                </div>
+                
+                <div class="article-meta mb-2">
+                    <span class="badge bg-secondary">${article.domain}</span>
+                    <span class="badge bg-primary">${article.category}</span>
+                    <span class="badge ${article.quality_score >= 80 ? 'bg-success' : article.quality_score >= 60 ? 'bg-warning' : 'bg-danger'}">
+                        Quality: ${article.quality_score}
+                    </span>
+                    <span class="badge bg-info">
+                        <i class="fas ${sentimentIcon}"></i> ${article.sentiment}
+                    </span>
+                </div>
+                
+                <p class="card-text text-muted">
+                    ${article.preview || article.summary || article.content_preview || 'No summary available.'}
+                </p>
+                
+                <div class="d-flex justify-content-between align-items-center">
+                    <small class="text-muted">
+                        ${article.authors && article.authors.length > 0 ? `By ${article.authors.join(', ')} • ` : ''}
+                        ${article.processed_at ? new Date(article.processed_at).toLocaleDateString() : 'Unknown date'}
+                    </small>
+                    <small class="text-primary">
+                        <i class="fas fa-clock"></i> 
+                        ${article.reading_time || Math.ceil((article.word_count || article.content_length / 5) / 200)} min read
+                    </small>
+                </div>
+            </div>
+        </div>
+    `;
 }
+
+// Load dashboard data
+async function loadDashboardData() {
+    try {
+        // Load stats
+        const statsResponse = await fetch('/api/stats/overview');
+        const stats = await statsResponse.json();
+        
+        document.getElementById('total-articles').textContent = Number(stats.total_articles || 0).toLocaleString();
+        document.getElementById('unique-domains').textContent = Number(stats.unique_domains || 0).toLocaleString();
+        document.getElementById('avg-quality').textContent = stats.quality?.average || '0';
+        document.getElementById('recent-articles').textContent = Number(stats.recent_articles_1h || 0).toLocaleString();
+
+        // Load recent articles
+        const articlesResponse = await fetch('/api/articles?page=1&per_page=10');
+        const articlesData = await articlesResponse.json();
+        
+        const articlesContainer = document.getElementById('recent-articles-container');
+        if (articlesData.articles && articlesData.articles.length > 0) {
+            articlesContainer.innerHTML = articlesData.articles.map(article => 
+                renderArticleCard(article)
+            ).join('');
+        } else {
+            articlesContainer.innerHTML = `
+                <div class="text-center py-4">
+                    <i class="fas fa-inbox fa-3x text-muted mb-3"></i>
+                    <p class="text-muted">No articles found</p>
+                </div>
+            `;
+        }
+
+    } catch (error) {
+        console.error('Error loading dashboard data:', error);
+        document.getElementById('recent-articles-container').innerHTML = `
+            <div class="alert alert-danger">
+                <i class="fas fa-exclamation-triangle"></i> Error loading articles
+            </div>
+        `;
+    }
+}
+
+// Load data when page loads
+document.addEventListener('DOMContentLoaded', loadDashboardData);
 </script>
 {% endblock %}

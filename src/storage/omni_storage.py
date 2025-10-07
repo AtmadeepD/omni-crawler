@@ -3,13 +3,20 @@ import psycopg2
 import redis
 import json
 from datetime import datetime
+from typing import Dict, List, Optional, Any
+from decimal import Decimal
 import logging
+import sqlite3
 
-logging.basicConfig(level=logging.INFO)
+# Add the new enhanced system imports
+from models.enhanced_article import EnhancedArticle
+from validation.article_validator import ArticleValidator
+from processing.content_enricher import ContentEnricher
+
 logger = logging.getLogger(__name__)
 
-class OmniStorageManager:
-    def __init__(self, es_host='localhost', pg_host='localhost', redis_host='localhost'):
+class OmniStorage:
+    def __init__(self, db_path: str = None, es_host='localhost', pg_host='localhost', redis_host='localhost'):
         try:
             # Elasticsearch for search and analytics
             self.es = Elasticsearch([f'http://{es_host}:9200'])
@@ -33,9 +40,25 @@ class OmniStorageManager:
             self.redis.ping()
             logger.info("✅ Redis connection successful")
             
+            self.validator = ArticleValidator()
+            self.enricher = ContentEnricher()
+            self.db_path = db_path or "omniparser.db"
+            self._init_enhanced_storage()
+            
         except Exception as e:
             logger.error(f"❌ Storage initialization failed: {e}")
             raise
+    
+    def _init_enhanced_storage(self):
+        """Initialize enhanced storage system"""
+        try:
+            # Ensure database schema is up to date
+            from .database_schema_updater import DatabaseSchemaUpdater
+            updater = DatabaseSchemaUpdater(self.db_path)
+            updater.update_schema()
+            logger.info("✅ Enhanced storage initialized")
+        except Exception as e:
+            logger.error(f"❌ Enhanced storage initialization failed: {e}")
     
     def store_article(self, enhanced_article):
         """Store across multiple storage systems"""
@@ -330,6 +353,183 @@ class OmniStorageManager:
             logger.error(f"Error closing PostgreSQL: {e}")
         
         logger.info("🔌 Storage connections closed")
+    
+    def save_enhanced_article(self, basic_article_data: Dict) -> Dict:
+        """Save article with enhanced processing and validation - MAIN ENTRY POINT"""
+        try:
+            logger.info(f"🔄 Processing article: {basic_article_data.get('title', 'Unknown')[:50]}...")
+
+            # Step 1: Validate the article
+            is_valid, validation_results = self.validator.validate_article(basic_article_data)
+
+            if not is_valid:
+                logger.warning(f"⚠️ Article validation failed: {validation_results['errors']}")
+                # Continue but with lower quality score
+
+            # Step 2: Enrich the article
+            enriched_data = self.enricher.enrich_article(basic_article_data)
+            logger.info(f"✅ Article enriched with {len(enriched_data)} enhanced fields")
+
+            # Step 3: Create enhanced article object
+            enhanced_article = EnhancedArticle.from_basic_article(basic_article_data, enriched_data)
+
+            # Step 4: Update quality score based on validation
+            if not is_valid:
+                enhanced_article.quality_score = min(
+                    enhanced_article.quality_score,
+                    validation_results['quality_score']
+                )
+
+            # Step 5: Save to database
+            save_result = self._save_enhanced_article_to_db(enhanced_article)
+
+            if save_result:
+                logger.info(f"✅ Enhanced article saved: {enhanced_article.article_id}")
+                return {
+                    'success': True,
+                    'article_id': enhanced_article.article_id,
+                    'validation_results': validation_results,
+                    'enhanced_fields': list(enriched_data.keys()),
+                    'quality_score': float(enhanced_article.quality_score),
+                    'confidence_score': float(enhanced_article.confidence_score)
+                }
+            else:
+                logger.error("❌ Failed to save enhanced article to database")
+                return {
+                    'success': False,
+                    'error': 'Database save failed'
+                }
+
+        except Exception as e:
+            logger.error(f"❌ Enhanced article processing failed: {str(e)}")
+            return {
+                'success': False,
+                'error': str(e)
+            }
+
+    def _save_enhanced_article_to_db(self, article: EnhancedArticle) -> bool:
+        """Save enhanced article to database"""
+        conn = None
+        try:
+            conn = sqlite3.connect(self.db_path)
+            cursor = conn.cursor()
+
+            # Convert to dictionary and prepare for SQL
+            article_dict = article.to_dict()
+
+            # Prepare SQL insert
+            columns = []
+            placeholders = []
+            values = []
+
+            for key, value in article_dict.items():
+                columns.append(key)
+                placeholders.append('?')
+
+                # Handle different data types for SQL
+                if value is None:
+                    values.append(None)
+                elif isinstance(value, Decimal):
+                    # Convert Decimal to float for SQLite
+                    values.append(float(value))
+                elif isinstance(value, (list, dict)):
+                    # Convert to JSON string
+                    values.append(json.dumps(value, ensure_ascii=False))
+                elif isinstance(value, datetime):
+                    # Convert datetime to ISO string
+                    values.append(value.isoformat())
+                else:
+                    values.append(value)
+
+            # Build and execute SQL
+            sql = f"""
+            INSERT OR REPLACE INTO enhanced_articles 
+            ({', '.join(columns)})
+            VALUES ({', '.join(placeholders)})
+            """
+
+            cursor.execute(sql, values)
+            conn.commit()
+            
+            logger.info(f"✅ Enhanced article saved to SQLite: {article.article_id}")
+            return True
+
+        except Exception as e:
+            logger.error(f"❌ Database save failed: {e}")
+            if conn:
+                conn.rollback()
+            return False
+        finally:
+            if conn:
+                conn.close()
+    
+    def get_enhanced_articles(self, limit: int = 100, filters: Dict = None) -> List[Dict]:
+        """Retrieve enhanced articles from database"""
+        try:
+            conn = sqlite3.connect(self.db_path)
+            conn.row_factory = sqlite3.Row
+            cursor = conn.cursor()
+
+            # Build query with filters
+            query = "SELECT * FROM enhanced_articles WHERE 1=1"
+            params = []
+
+            if filters:
+                if filters.get('domain'):
+                    query += " AND domain = ?"
+                    params.append(filters['domain'])
+                if filters.get('category'):
+                    query += " AND category = ?"
+                    params.append(filters['category'])
+                if filters.get('date_from'):
+                    query += " AND publish_date >= ?"
+                    params.append(filters['date_from'])
+                if filters.get('date_to'):
+                    query += " AND publish_date <= ?"
+                    params.append(filters['date_to'])
+                if filters.get('min_quality'):
+                    query += " AND quality_score >= ?"
+                    params.append(float(filters['min_quality']))
+
+            query += " ORDER BY processing_timestamp DESC LIMIT ?"
+            params.append(limit)
+
+            cursor.execute(query, params)
+            rows = cursor.fetchall()
+            conn.close()
+
+            # Convert rows to dictionaries
+            articles = []
+            for row in rows:
+                article = dict(row)
+
+                # Parse JSON fields back to Python objects
+                json_fields = ['authors', 'tags', 'topics', 'sentiment', 'entities', 
+                             'keywords', 'social_shares', 'outbound_links', 'inbound_links',
+                             'media_attachments', 'structured_data']
+
+                for field in json_fields:
+                    if article.get(field):
+                        try:
+                            article[field] = json.loads(article[field])
+                        except:
+                            article[field] = []
+
+                articles.append(article)
+
+            logger.info(f"✅ Retrieved {len(articles)} enhanced articles")
+            return articles
+
+        except Exception as e:
+            logger.error(f"❌ Failed to retrieve enhanced articles: {e}")
+            return []
+
+# Import the schema updater directly
+try:
+    from .database_schema_updater import DatabaseSchemaUpdater
+except ImportError:
+    # Fallback for direct execution
+    from database_schema_updater import DatabaseSchemaUpdater
 
 # Test function
 def test_storage():
@@ -337,7 +537,7 @@ def test_storage():
     print("🧪 Testing Storage System...")
     
     try:
-        storage = OmniStorageManager()
+        storage = OmniStorage()
         
         # Sample article data
         sample_article = {

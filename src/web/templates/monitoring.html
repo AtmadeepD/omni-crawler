@@ -231,9 +231,9 @@ function loadSystemMetrics() {
 
             if (data.database) {
                 document.getElementById('article-count').textContent = 
-                    data.database.total_articles.toLocaleString();
+                    Number(data.database.total_articles || 0).toLocaleString();
                 document.getElementById('recent-articles').textContent = 
-                    `${data.database.recent_articles_1h} articles in last hour`;
+                    `${Number(data.database.recent_articles_1h || 0).toLocaleString()} articles in last hour`;
             }
 
             // System metrics details
@@ -272,7 +272,7 @@ function loadSystemMetrics() {
                         <h6>Elasticsearch</h6>
                         <table class="table table-sm">
                             <tr><td>Status:</td><td><span class="badge bg-success">${data.storage.elasticsearch.status}</span></td></tr>
-                            <tr><td>Documents:</td><td>${data.storage.elasticsearch.document_count.toLocaleString()}</td></tr>
+                            <tr><td>Documents:</td><td>${Number(data.storage.elasticsearch.document_count || 0).toLocaleString()}</td></tr>
                             <tr><td>Index Size:</td><td>${formatBytes(data.storage.elasticsearch.index_size_bytes)}</td></tr>
                             <tr><td>Nodes:</td><td>${data.storage.elasticsearch.number_of_nodes}</td></tr>
                         </table>
@@ -285,8 +285,8 @@ function loadSystemMetrics() {
                         <table class="table table-sm">
                             <tr><td>Connected Clients:</td><td>${data.storage.redis.connected_clients}</td></tr>
                             <tr><td>Memory Used:</td><td>${data.storage.redis.used_memory_human}</td></tr>
-                            <tr><td>Cache Hits:</td><td>${data.storage.redis.keyspace_hits.toLocaleString()}</td></tr>
-                            <tr><td>Cache Misses:</td><td>${data.storage.redis.keyspace_misses.toLocaleString()}</td></tr>
+                            <tr><td>Cache Hits:</td><td>${Number(data.storage.redis.keyspace_hits || 0).toLocaleString()}</td></tr>
+                            <tr><td>Cache Misses:</td><td>${Number(data.storage.redis.keyspace_misses || 0).toLocaleString()}</td></tr>
                         </table>
                     `;
                 }
@@ -296,10 +296,10 @@ function loadSystemMetrics() {
                 storageHtml += `
                     <h6>PostgreSQL</h6>
                     <table class="table table-sm">
-                        <tr><td>Total Articles:</td><td>${data.database.total_articles.toLocaleString()}</td></tr>
+                        <tr><td>Total Articles:</td><td>${Number(data.database.total_articles || 0).toLocaleString()}</td></tr>
                         <tr><td>Unique Domains:</td><td>${data.database.unique_domains}</td></tr>
                         <tr><td>Avg Quality:</td><td>${data.database.avg_quality}/100</td></tr>
-                        <tr><td>High Quality Articles:</td><td>${data.database.high_quality_count.toLocaleString()}</td></tr>
+                        <tr><td>High Quality Articles:</td><td>${Number(data.database.high_quality_count || 0).toLocaleString()}</td></tr>
                     </table>
                 `;
             }

@@ -12,7 +12,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 from discovery.url_discovery_engine import OmniURLDiscoverer
 from crawler.simple_crawler import SimpleCrawler
 from processing.content_enhancement import ContentEnhancementPipeline
-from storage.omni_storage import OmniStorageManager
+from storage.omni_storage import OmniStorage
 
 logging.basicConfig(
     level=logging.INFO,
@@ -42,7 +42,7 @@ class OmniOrchestrator:
             redis_host=self.config.get('redis_host', 'localhost')
         )
         self.processor = ContentEnhancementPipeline()
-        self.storage = OmniStorageManager(
+        self.storage = OmniStorage(
             es_host=self.config.get('es_host', 'localhost'),
             pg_host=self.config.get('pg_host', 'localhost'), 
             redis_host=self.config.get('redis_host', 'localhost')
@@ -164,19 +164,22 @@ class OmniOrchestrator:
     async def _store_articles(self, processed_articles):
         """Store processed articles"""
         stored_count = 0
-        
+
         for article in processed_articles:
             try:
-                success = self.storage.store_article(article)
-                if success:
+                # Use enhanced save method
+                result = self.storage.save_enhanced_article(article)
+                if result['success']:
                     stored_count += 1
+                    print(f"✅ Enhanced article saved: {result['article_id']}")
+                    print(f"   Quality: {result['quality_score']:.2f}, Confidence: {result['confidence_score']:.2f}")
                 else:
-                    logger.error(f"Storage failed for {article['article_id']}")
+                    logger.error(f"Storage failed for {article.get('article_id', 'unknown')}: {result.get('error', 'Unknown error')}")
                     self.stats['errors'] += 1
             except Exception as e:
-                logger.error(f"Storage error for {article['article_id']}: {e}")
+                logger.error(f"Storage error for {article.get('article_id', 'unknown')}: {e}")
                 self.stats['errors'] += 1
-        
+
         return stored_count
     
     def _report_cycle_stats(self, cycle_time, urls_found, articles_crawled, articles_stored):

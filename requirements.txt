@@ -33,3 +33,8 @@ blinker==1.6.3
 plotly==5.15.0
 pandas==2.1.1
 psutil==5.9.5
+
+# Add these for enhanced processing
+nltk>=3.6.0
+# spacy>=3.0.0  # Uncomment when ready for advanced NLP
+# textblob>=0.17.0  # Uncomment for better sentiment analysis

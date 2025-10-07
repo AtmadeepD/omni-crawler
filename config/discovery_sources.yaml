@@ -1,0 +1,21 @@
+rss_feeds:
+  - name: "CNN World"
+    url: "https://rss.cnn.com/rss/edition.rss"
+    category: "world"
+    enabled: true
+  
+  - name: "BBC News" 
+    url: "https://feeds.bbci.co.uk/news/rss.xml"
+    category: "general"
+    enabled: true
+  
+  - name: "NPR News"
+    url: "https://feeds.npr.org/1001/rss.xml"
+    category: "general"
+    enabled: true
+
+sitemap_patterns:
+  - "/sitemap.xml"
+  - "/sitemap_index.xml"
+  - "/news-sitemap.xml"
+  - "/sitemap-news.xml"

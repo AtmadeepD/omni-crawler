@@ -1,0 +1,407 @@
+{% extends "base.html" %}
+
+{% block title %}Data Export - OmniCrawler{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col">
+        <h1><i class="fas fa-download"></i> Data Export</h1>
+        <p class="text-muted">Export your news data in various formats for analysis</p>
+    </div>
+</div>
+
+<!-- Export Options -->
+<div class="row">
+    <!-- Articles Export -->
+    <div class="col-lg-6 mb-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-newspaper"></i> Export Articles
+                </h5>
+            </div>
+            <div class="card-body">
+                <form id="articles-export-form">
+                    <div class="mb-3">
+                        <label class="form-label">Format</label>
+                        <div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="articles-format" id="csv-format" value="csv" checked>
+                                <label class="form-check-label" for="csv-format">CSV</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="articles-format" id="json-format" value="json">
+                                <label class="form-check-label" for="json-format">JSON</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="domain-filter" class="form-label">Domain Filter</label>
+                        <select class="form-select" id="domain-filter">
+                            <option value="">All Domains</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="category-filter" class="form-label">Category Filter</label>
+                        <select class="form-select" id="category-filter">
+                            <option value="">All Categories</option>
+                            <option value="politics">Politics</option>
+                            <option value="sports">Sports</option>
+                            <option value="technology">Technology</option>
+                            <option value="business">Business</option>
+                            <option value="health">Health</option>
+                            <option value="entertainment">Entertainment</option>
+                            <option value="general">General</option>
+                        </select>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="date-from" class="form-label">Date From</label>
+                            <input type="date" class="form-control" id="date-from">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="date-to" class="form-label">Date To</label>
+                            <input type="date" class="form-control" id="date-to">
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="quality-filter" class="form-label">Minimum Quality Score</label>
+                        <select class="form-select" id="quality-filter">
+                            <option value="0">Any Quality</option>
+                            <option value="80">High (80+)</option>
+                            <option value="60">Medium (60+)</option>
+                            <option value="40">Low (40+)</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="limit-articles" class="form-label">Maximum Articles</label>
+                        <input type="number" class="form-control" id="limit-articles" value="1000" min="1" max="10000">
+                        <div class="form-text">Maximum 10,000 articles per export</div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100">
+                        <i class="fas fa-download"></i> Export Articles
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Analytics & Full Export -->
+    <div class="col-lg-6 mb-4">
+        <!-- Analytics Report -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-chart-bar"></i> Analytics Report
+                </h5>
+            </div>
+            <div class="card-body">
+                <p class="card-text">Generate a comprehensive analytics report with insights and statistics.</p>
+                
+                <div class="mb-3">
+                    <label for="report-period" class="form-label">Report Period</label>
+                    <select class="form-select" id="report-period">
+                        <option value="7">Last 7 Days</option>
+                        <option value="30">Last 30 Days</option>
+                        <option value="90">Last 90 Days</option>
+                        <option value="365">Last Year</option>
+                    </select>
+                </div>
+
+                <button class="btn btn-info w-100" onclick="exportAnalyticsReport()">
+                    <i class="fas fa-file-alt"></i> Generate Analytics Report
+                </button>
+            </div>
+        </div>
+
+        <!-- Full Database Export -->
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-database"></i> Full Database Export
+                </h5>
+            </div>
+            <div class="card-body">
+                <p class="card-text">Export complete database including articles, entities, and metadata.</p>
+                <div class="alert alert-warning">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <strong>Warning:</strong> This export may be large and take several minutes to generate.
+                </div>
+                <button class="btn btn-warning w-100" onclick="exportFullDatabase()">
+                    <i class="fas fa-archive"></i> Export Full Database
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Export History -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-history"></i> Recent Exports
+                </h5>
+            </div>
+            <div class="card-body">
+                <div id="export-history">
+                    <div class="text-center text-muted py-3">
+                        <i class="fas fa-download fa-2x mb-2"></i>
+                        <p>No export history available</p>
+                        <small>Your export downloads will appear here</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    loadDomainFilters();
+    
+    // Set default dates (last 30 days)
+    const today = new Date();
+    const thirtyDaysAgo = new Date();
+    thirtyDaysAgo.setDate(today.getDate() - 30);
+    
+    document.getElementById('date-from').value = thirtyDaysAgo.toISOString().split('T')[0];
+    document.getElementById('date-to').value = today.toISOString().split('T')[0];
+    
+    // Form submission
+    document.getElementById('articles-export-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        exportArticles();
+    });
+});
+
+function loadDomainFilters() {
+    fetch('/api/stats/overview')
+        .then(response => response.json())
+        .then(data => {
+            const domainFilter = document.getElementById('domain-filter');
+            Object.keys(data.categories || {}).forEach(domain => {
+                const option = document.createElement('option');
+                option.value = domain;
+                option.textContent = domain;
+                domainFilter.appendChild(option);
+            });
+        })
+        .catch(error => {
+            console.error('Error loading domains:', error);
+        });
+}
+
+function exportArticles() {
+    const format = document.querySelector('input[name="articles-format"]:checked').value;
+    const filters = {
+        domain: document.getElementById('domain-filter').value,
+        category: document.getElementById('category-filter').value,
+        date_from: document.getElementById('date-from').value,
+        date_to: document.getElementById('date-to').value,
+        min_quality: document.getElementById('quality-filter').value,
+        limit: document.getElementById('limit-articles').value
+    };
+
+    // Show loading state
+    const submitBtn = document.querySelector('#articles-export-form button[type="submit"]');
+    const originalText = submitBtn.innerHTML;
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Exporting...';
+    submitBtn.disabled = true;
+
+    const endpoint = format === 'csv' ? '/api/export/articles/csv' : '/api/export/articles/json';
+    const queryString = new URLSearchParams(filters).toString();
+
+    fetch(`${endpoint}?${queryString}`)
+        .then(response => {
+            if (!response.ok) {
+                return response.json().then(errorData => {
+                    throw new Error(errorData.error || 'Export failed');
+                });
+            }
+            return response.blob();
+        })
+        .then(blob => {
+            // Create download link
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            
+            const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+            const filename = `articles_export_${timestamp}.${format}`;
+            a.download = filename;
+            
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+            
+            // Add to export history
+            addToExportHistory({
+                type: 'Articles',
+                format: format.toUpperCase(),
+                filters: filters,
+                timestamp: new Date().toISOString(),
+                filename: filename
+            });
+        })
+        .catch(error => {
+            console.error('Export error:', error);
+            alert('Export failed: ' + error.message);
+        })
+        .finally(() => {
+            // Restore button state
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
+        });
+}
+
+function exportAnalyticsReport() {
+    const period = document.getElementById('report-period').value;
+    
+    // Show loading state
+    const btn = event.target;
+    const originalText = btn.innerHTML;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generating...';
+    btn.disabled = true;
+
+    fetch(`/api/export/analytics?days=${period}`)
+        .then(response => {
+            if (!response.ok) {
+                return response.json().then(errorData => {
+                    throw new Error(errorData.error || 'Report generation failed');
+                });
+            }
+            return response.blob();
+        })
+        .then(blob => {
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            
+            const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+            const filename = `analytics_report_${period}days_${timestamp}.json`;
+            a.download = filename;
+            
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+            
+            addToExportHistory({
+                type: 'Analytics Report',
+                format: 'JSON',
+                period: `${period} days`,
+                timestamp: new Date().toISOString(),
+                filename: filename
+            });
+        })
+        .catch(error => {
+            console.error('Analytics export error:', error);
+            alert('Report generation failed: ' + error.message);
+        })
+        .finally(() => {
+            btn.innerHTML = originalText;
+            btn.disabled = false;
+        });
+}
+
+function exportFullDatabase() {
+    if (!confirm('This will export the entire database. This may take several minutes. Continue?')) {
+        return;
+    }
+
+    const btn = event.target;
+    const originalText = btn.innerHTML;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Preparing...';
+    btn.disabled = true;
+
+    fetch('/api/export/full-dump')
+        .then(response => {
+            if (!response.ok) {
+                return response.json().then(errorData => {
+                    throw new Error(errorData.error || 'Database export failed');
+                });
+            }
+            return response.blob();
+        })
+        .then(blob => {
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            
+            const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+            const filename = `full_database_dump_${timestamp}.zip`;
+            a.download = filename;
+            
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+            
+            addToExportHistory({
+                type: 'Full Database',
+                format: 'ZIP',
+                timestamp: new Date().toISOString(),
+                filename: filename
+            });
+        })
+        .catch(error => {
+            console.error('Full export error:', error);
+            alert('Database export failed: ' + error.message);
+        })
+        .finally(() => {
+            btn.innerHTML = originalText;
+            btn.disabled = false;
+        });
+}
+
+function addToExportHistory(exportInfo) {
+    const historyContainer = document.getElementById('export-history');
+    
+    const exportItem = `
+        <div class="export-item d-flex justify-content-between align-items-center p-3 border-bottom">
+            <div>
+                <h6 class="mb-1">${exportInfo.type} Export</h6>
+                <p class="mb-1 text-muted">
+                    <small>
+                        Format: ${exportInfo.format} | 
+                        ${exportInfo.period ? `Period: ${exportInfo.period} | ` : ''}
+                        ${exportInfo.filters ? 'With filters | ' : ''}
+                        ${new Date(exportInfo.timestamp).toLocaleString()}
+                    </small>
+                </p>
+            </div>
+            <div>
+                <span class="badge bg-success">Completed</span>
+            </div>
+        </div>
+    `;
+    
+    // Add to top of history
+    if (historyContainer.children[0].classList.contains('text-center')) {
+        historyContainer.innerHTML = exportItem;
+    } else {
+        historyContainer.innerHTML = exportItem + historyContainer.innerHTML;
+    }
+}
+</script>
+
+<style>
+.export-item {
+    transition: background-color 0.2s;
+}
+.export-item:hover {
+    background-color: #f8f9fa;
+}
+</style>
+{% endblock %}

@@ -1,0 +1,54 @@
+version: '3.8'
+
+services:
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    command: redis-server --appendonly yes
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.5.0
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ports:
+      - "9200:9200"
+    volumes:
+      - elasticsearch_data:/usr/share/elasticsearch/data
+
+  postgres:
+    image: postgres:14
+    environment:
+      POSTGRES_DB: news_omnidb
+      POSTGRES_USER: crawler
+      POSTGRES_PASSWORD: crawler123
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./scripts/init_database.sql:/docker-entrypoint-initdb.d/init_database.sql
+
+  omni-crawler:
+    build: .
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - redis
+      - elasticsearch
+      - postgres
+    environment:
+      - REDIS_HOST=redis
+      - ELASTICSEARCH_HOST=elasticsearch
+      - POSTGRES_HOST=postgres
+    command: ["python", "src/orchestrator/omni_orchestrator.py"]
+
+volumes:
+  redis_data:
+  elasticsearch_data:
+  postgres_data:

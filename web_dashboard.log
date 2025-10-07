@@ -1,0 +1,1196 @@
+2025-10-07 01:15:17,647 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.29.157:5000
+2025-10-07 01:15:17,647 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-10-07 01:15:26,178 - dashboard - ERROR - Exception on / [GET]
+Traceback (most recent call last):
+  File "C:\Users\adey6\AppData\Local\Programs\Python\Python311\Lib\site-packages\flask\app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\adey6\AppData\Local\Programs\Python\Python311\Lib\site-packages\flask\app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\adey6\AppData\Local\Programs\Python\Python311\Lib\site-packages\flask_cors\extension.py", line 176, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+                                                ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\adey6\AppData\Local\Programs\Python\Python311\Lib\site-packages\flask\app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\adey6\AppData\Local\Programs\Python\Python311\Lib\site-packages\flask\app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\omni-crawler\src\web\dashboard.py", line 113, in dashboard
+    return render_template('dashboard.html')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\adey6\AppData\Local\Programs\Python\Python311\Lib\site-packages\flask\templating.py", line 150, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\adey6\AppData\Local\Programs\Python\Python311\Lib\site-packages\jinja2\environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\adey6\AppData\Local\Programs\Python\Python311\Lib\site-packages\jinja2\environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\adey6\AppData\Local\Programs\Python\Python311\Lib\site-packages\jinja2\environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\adey6\AppData\Local\Programs\Python\Python311\Lib\site-packages\jinja2\loaders.py", line 126, in load
+    source, filename, uptodate = self.get_source(environment, name)
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\adey6\AppData\Local\Programs\Python\Python311\Lib\site-packages\flask\templating.py", line 64, in get_source
+    return self._get_source_fast(environment, template)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\adey6\AppData\Local\Programs\Python\Python311\Lib\site-packages\flask\templating.py", line 98, in _get_source_fast
+    raise TemplateNotFound(template)
+jinja2.exceptions.TemplateNotFound: dashboard.html
+2025-10-07 01:15:26,185 - __main__ - ERROR - Internal server error: 500 Internal Server Error: The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application.
+2025-10-07 01:15:26,188 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 01:15:26] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2025-10-07 01:20:07,915 - __main__ - INFO - 🚀 Starting OmniCrawler Web Dashboard on 0.0.0.0:5000
+2025-10-07 01:20:09,604 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.29.157:5000
+2025-10-07 01:20:09,604 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-10-07 01:20:19,735 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 01:20:19] "GET / HTTP/1.1" 200 -
+2025-10-07 01:20:21,235 - __main__ - ERROR - Sentiment analytics error: column "sentiment_label" does not exist
+LINE 4:                 sentiment_label,
+                        ^
+
+2025-10-07 01:20:21,236 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 01:20:21] "[35m[1mGET /api/analytics/sentiment HTTP/1.1[0m" 503 -
+2025-10-07 01:20:21,373 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 01:20:21] "GET /api/analytics/categories HTTP/1.1" 200 -
+2025-10-07 01:20:21,476 - __main__ - ERROR - Domain analytics error: column "content_length" does not exist
+LINE 6:                 AVG(content_length) as avg_length,
+                            ^
+
+2025-10-07 01:20:21,477 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 01:20:21] "[35m[1mGET /api/analytics/domains HTTP/1.1[0m" 503 -
+2025-10-07 01:20:30,052 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 01:20:30] "GET / HTTP/1.1" 200 -
+2025-10-07 01:20:30,537 - __main__ - ERROR - Sentiment analytics error: column "sentiment_label" does not exist
+LINE 4:                 sentiment_label,
+                        ^
+
+2025-10-07 01:20:30,539 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 01:20:30] "[35m[1mGET /api/analytics/sentiment HTTP/1.1[0m" 503 -
+2025-10-07 01:20:30,564 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 01:20:30] "GET /api/analytics/categories HTTP/1.1" 200 -
+2025-10-07 01:20:30,830 - __main__ - ERROR - Domain analytics error: column "content_length" does not exist
+LINE 6:                 AVG(content_length) as avg_length,
+                            ^
+
+2025-10-07 01:20:30,832 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 01:20:30] "[35m[1mGET /api/analytics/domains HTTP/1.1[0m" 503 -
+2025-10-07 01:20:33,759 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 01:20:33] "GET /analytics HTTP/1.1" 200 -
+2025-10-07 01:20:34,361 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 01:20:34] "GET /api/analytics/categories HTTP/1.1" 200 -
+2025-10-07 01:20:34,367 - __main__ - ERROR - Sentiment analytics error: column "sentiment_label" does not exist
+LINE 4:                 sentiment_label,
+                        ^
+
+2025-10-07 01:20:34,373 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 01:20:34] "[35m[1mGET /api/analytics/sentiment HTTP/1.1[0m" 503 -
+2025-10-07 01:20:34,527 - __main__ - ERROR - Domain analytics error: column "content_length" does not exist
+LINE 6:                 AVG(content_length) as avg_length,
+                            ^
+
+2025-10-07 01:20:34,535 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 01:20:34] "[35m[1mGET /api/analytics/domains HTTP/1.1[0m" 503 -
+2025-10-07 01:20:38,705 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.276s]
+2025-10-07 01:20:38,705 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 01:20:38] "GET /api/health HTTP/1.1" 200 -
+2025-10-07 01:20:41,181 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 01:20:41] "GET / HTTP/1.1" 200 -
+2025-10-07 01:20:41,562 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 01:20:41] "GET /api/analytics/categories HTTP/1.1" 200 -
+2025-10-07 01:20:41,834 - __main__ - ERROR - Sentiment analytics error: column "sentiment_label" does not exist
+LINE 4:                 sentiment_label,
+                        ^
+
+2025-10-07 01:20:41,834 - __main__ - ERROR - Domain analytics error: column "content_length" does not exist
+LINE 6:                 AVG(content_length) as avg_length,
+                            ^
+
+2025-10-07 01:20:41,836 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 01:20:41] "[35m[1mGET /api/analytics/sentiment HTTP/1.1[0m" 503 -
+2025-10-07 01:20:41,836 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 01:20:41] "[35m[1mGET /api/analytics/domains HTTP/1.1[0m" 503 -
+2025-10-07 01:22:15,830 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 01:22:15] "GET /api/analytics/categories HTTP/1.1" 200 -
+2025-10-07 01:22:28,929 - __main__ - ERROR - Sentiment analytics error: column "sentiment_label" does not exist
+LINE 4:                 sentiment_label,
+                        ^
+
+2025-10-07 01:22:28,931 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 01:22:28] "[35m[1mGET /api/analytics/sentiment HTTP/1.1[0m" 503 -
+2025-10-07 01:22:57,878 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 01:22:57] "GET /api/analytics/categories HTTP/1.1" 200 -
+2025-10-07 01:23:11,189 - __main__ - ERROR - Domain analytics error: column "content_length" does not exist
+LINE 6:                 AVG(content_length) as avg_length,
+                            ^
+
+2025-10-07 01:23:11,191 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 01:23:11] "[35m[1mGET /api/analytics/domains HTTP/1.1[0m" 503 -
+2025-10-07 01:23:32,468 - __main__ - ERROR - Get articles error: column "sentiment_label" does not exist
+LINE 4:                 quality_score, category, sentiment_label,
+                                                 ^
+
+2025-10-07 01:23:32,470 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 01:23:32] "[35m[1mGET /api/articles HTTP/1.1[0m" 500 -
+2025-10-07 01:23:35,557 - __main__ - ERROR - Get articles error: column "sentiment_label" does not exist
+LINE 4:                 quality_score, category, sentiment_label,
+                                                 ^
+
+2025-10-07 01:23:35,560 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 01:23:35] "[35m[1mGET /api/articles HTTP/1.1[0m" 500 -
+2025-10-07 01:46:58,768 - __main__ - INFO - Database columns: ['created_at', 'publish_date', 'quality_score', 'processing_timestamp', 'authors', 'domain', 'crawler_engine', 'article_id', 'category', 'url', 'title', 'content']
+2025-10-07 01:46:58,772 - src.monitoring.system_monitor - INFO - 🚀 System monitoring started with 60s interval
+2025-10-07 01:46:58,772 - __main__ - INFO - 🚀 Starting OmniCrawler Web Dashboard on 0.0.0.0:5000
+2025-10-07 01:47:00,013 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.183s]
+2025-10-07 01:47:00,071 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.012s]
+2025-10-07 01:47:00,243 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.171s]
+2025-10-07 01:47:00,358 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.115s]
+2025-10-07 01:47:00,368 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 01:47:00,459 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.29.157:5000
+2025-10-07 01:47:00,459 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-10-07 01:47:08,136 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 01:47:08] "GET / HTTP/1.1" 200 -
+2025-10-07 01:47:09,736 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 01:47:09] "GET /api/analytics/domains HTTP/1.1" 200 -
+2025-10-07 01:47:09,739 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 01:47:09] "GET /api/analytics/categories HTTP/1.1" 200 -
+2025-10-07 01:47:09,750 - __main__ - WARNING - sentiment_label column not found, using default data
+2025-10-07 01:47:09,803 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 01:47:09] "GET /api/analytics/sentiment HTTP/1.1" 200 -
+2025-10-07 01:47:41,326 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.027s]
+2025-10-07 01:47:41,327 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 01:47:41] "GET /api/health HTTP/1.1" 200 -
+2025-10-07 01:47:45,499 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 01:47:45] "GET / HTTP/1.1" 200 -
+2025-10-07 01:47:45,873 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 01:47:45] "GET /api/analytics/categories HTTP/1.1" 200 -
+2025-10-07 01:47:46,197 - __main__ - WARNING - sentiment_label column not found, using default data
+2025-10-07 01:47:46,201 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 01:47:46] "GET /api/analytics/sentiment HTTP/1.1" 200 -
+2025-10-07 01:47:46,219 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 01:47:46] "GET /api/analytics/domains HTTP/1.1" 200 -
+2025-10-07 01:48:01,394 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.009s]
+2025-10-07 01:48:01,438 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.006s]
+2025-10-07 01:48:01,445 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.007s]
+2025-10-07 01:48:01,455 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.010s]
+2025-10-07 01:48:01,458 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 01:49:02,480 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.005s]
+2025-10-07 01:49:02,520 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.007s]
+2025-10-07 01:49:02,526 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.006s]
+2025-10-07 01:49:02,534 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.006s]
+2025-10-07 01:49:02,537 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 01:50:03,561 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.006s]
+2025-10-07 01:50:03,600 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.008s]
+2025-10-07 01:50:03,608 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.007s]
+2025-10-07 01:50:03,614 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.006s]
+2025-10-07 01:50:03,616 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 01:51:04,652 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.012s]
+2025-10-07 01:51:04,698 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.008s]
+2025-10-07 01:51:04,708 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.009s]
+2025-10-07 01:51:04,773 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.064s]
+2025-10-07 01:51:04,777 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 01:52:05,800 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.006s]
+2025-10-07 01:52:05,851 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.005s]
+2025-10-07 01:52:05,878 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.026s]
+2025-10-07 01:52:05,888 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.010s]
+2025-10-07 01:52:05,891 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 01:53:06,919 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.007s]
+2025-10-07 01:53:06,956 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.006s]
+2025-10-07 01:53:06,967 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.010s]
+2025-10-07 01:53:06,978 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.010s]
+2025-10-07 01:53:06,981 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 01:54:08,007 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.008s]
+2025-10-07 01:54:08,043 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.009s]
+2025-10-07 01:54:08,049 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.007s]
+2025-10-07 01:54:08,057 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.007s]
+2025-10-07 01:54:08,060 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 01:54:17,526 - __main__ - INFO - Database columns: ['created_at', 'publish_date', 'quality_score', 'processing_timestamp', 'authors', 'domain', 'crawler_engine', 'article_id', 'category', 'url', 'title', 'content']
+2025-10-07 01:54:17,529 - src.monitoring.system_monitor - INFO - 🚀 System monitoring started with 60s interval
+2025-10-07 01:54:17,530 - __main__ - INFO - 🚀 Starting OmniCrawler Web Dashboard on 0.0.0.0:5000
+2025-10-07 01:54:18,590 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.031s]
+2025-10-07 01:54:18,648 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.013s]
+2025-10-07 01:54:18,692 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.043s]
+2025-10-07 01:54:18,704 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.011s]
+2025-10-07 01:54:18,712 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 01:54:19,220 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.29.157:5000
+2025-10-07 01:54:19,223 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-10-07 01:54:28,131 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 01:54:28] "GET / HTTP/1.1" 200 -
+2025-10-07 01:54:29,867 - __main__ - WARNING - sentiment_label column not found, using default data
+2025-10-07 01:54:29,971 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 01:54:29] "GET /api/analytics/sentiment HTTP/1.1" 200 -
+2025-10-07 01:54:29,984 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 01:54:29] "GET /api/analytics/categories HTTP/1.1" 200 -
+2025-10-07 01:54:30,248 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 01:54:30] "GET /api/analytics/domains HTTP/1.1" 200 -
+2025-10-07 01:54:32,825 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 01:54:32] "GET /search HTTP/1.1" 200 -
+2025-10-07 01:54:33,258 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 01:54:33] "GET /api/stats/overview HTTP/1.1" 200 -
+2025-10-07 01:54:42,650 - elastic_transport.transport - INFO - POST http://localhost:9200/news-articles/_search [status:400 duration:0.962s]
+2025-10-07 01:54:42,651 - src.search.advanced_search - ERROR - Advanced search error: BadRequestError(400, 'search_phase_execution_exception', 'No mapping found for [relevance] in order to sort on')
+2025-10-07 01:54:42,652 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 01:54:42] "GET /api/search/advanced?categories=politics&min_quality=0&sort_by=relevance&size=10 HTTP/1.1" 200 -
+2025-10-07 01:54:51,017 - elastic_transport.transport - INFO - POST http://localhost:9200/news-articles/_search [status:200 duration:3.351s]
+2025-10-07 01:54:51,018 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 01:54:51] "GET /api/search/advanced?q=bbc&categories=politics&min_quality=0&sort_by=relevance&size=10 HTTP/1.1" 200 -
+2025-10-07 01:55:19,739 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.007s]
+2025-10-07 01:55:19,777 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.004s]
+2025-10-07 01:55:19,784 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.007s]
+2025-10-07 01:55:19,793 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.008s]
+2025-10-07 01:55:19,796 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 01:56:20,813 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.004s]
+2025-10-07 01:56:20,862 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.007s]
+2025-10-07 01:56:20,869 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.006s]
+2025-10-07 01:56:20,876 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.007s]
+2025-10-07 01:56:20,878 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 01:57:21,897 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.005s]
+2025-10-07 01:57:21,941 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.005s]
+2025-10-07 01:57:21,947 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.007s]
+2025-10-07 01:57:21,956 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.009s]
+2025-10-07 01:57:21,958 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 01:58:22,981 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.006s]
+2025-10-07 01:58:23,030 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.007s]
+2025-10-07 01:58:23,037 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.007s]
+2025-10-07 01:58:23,046 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.009s]
+2025-10-07 01:58:23,048 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 01:58:40,212 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 01:58:40] "GET /monitoring HTTP/1.1" 200 -
+2025-10-07 01:58:41,428 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 01:58:41] "GET /api/monitoring/metrics HTTP/1.1" 200 -
+2025-10-07 01:58:41,460 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.007s]
+2025-10-07 01:58:41,462 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 01:58:41] "GET /api/monitoring/health HTTP/1.1" 200 -
+2025-10-07 01:58:41,732 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 01:58:41] "GET /api/monitoring/alerts HTTP/1.1" 200 -
+2025-10-07 01:58:59,169 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.007s]
+2025-10-07 01:58:59,173 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 01:58:59] "GET /api/monitoring/health HTTP/1.1" 200 -
+2025-10-07 01:59:00,052 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.008s]
+2025-10-07 01:59:00,054 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 01:59:00] "GET /api/monitoring/health HTTP/1.1" 200 -
+2025-10-07 01:59:00,723 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.006s]
+2025-10-07 01:59:00,725 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 01:59:00] "GET /api/monitoring/health HTTP/1.1" 200 -
+2025-10-07 01:59:00,982 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.006s]
+2025-10-07 01:59:00,984 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 01:59:00] "GET /api/monitoring/health HTTP/1.1" 200 -
+2025-10-07 01:59:01,070 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.003s]
+2025-10-07 01:59:01,073 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 01:59:01] "GET /api/monitoring/health HTTP/1.1" 200 -
+2025-10-07 01:59:02,836 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 01:59:02] "GET /api/monitoring/alerts HTTP/1.1" 200 -
+2025-10-07 01:59:03,715 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 01:59:03] "GET /api/monitoring/alerts HTTP/1.1" 200 -
+2025-10-07 01:59:11,451 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.005s]
+2025-10-07 01:59:11,454 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 01:59:11] "GET /api/monitoring/health HTTP/1.1" 200 -
+2025-10-07 01:59:11,744 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 01:59:11] "GET /api/monitoring/metrics HTTP/1.1" 200 -
+2025-10-07 01:59:11,748 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 01:59:11] "GET /api/monitoring/alerts HTTP/1.1" 200 -
+2025-10-07 01:59:12,085 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 01:59:12] "GET / HTTP/1.1" 200 -
+2025-10-07 01:59:13,468 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 01:59:13] "GET /api/analytics/categories HTTP/1.1" 200 -
+2025-10-07 01:59:13,476 - __main__ - WARNING - sentiment_label column not found, using default data
+2025-10-07 01:59:13,483 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 01:59:13] "GET /api/analytics/sentiment HTTP/1.1" 200 -
+2025-10-07 01:59:13,748 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 01:59:13] "GET /api/analytics/domains HTTP/1.1" 200 -
+2025-10-07 01:59:24,305 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.006s]
+2025-10-07 01:59:24,354 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.004s]
+2025-10-07 01:59:24,359 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.004s]
+2025-10-07 01:59:24,366 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.007s]
+2025-10-07 01:59:24,368 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 02:00:25,391 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.008s]
+2025-10-07 02:00:25,434 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.006s]
+2025-10-07 02:00:25,440 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.006s]
+2025-10-07 02:00:25,449 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.009s]
+2025-10-07 02:00:25,451 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 02:01:26,469 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.006s]
+2025-10-07 02:01:26,500 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.005s]
+2025-10-07 02:01:26,507 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.006s]
+2025-10-07 02:01:26,515 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.008s]
+2025-10-07 02:01:26,518 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 02:02:27,537 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.006s]
+2025-10-07 02:02:27,592 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.005s]
+2025-10-07 02:02:27,599 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.006s]
+2025-10-07 02:02:27,609 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.009s]
+2025-10-07 02:02:27,611 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 02:03:28,631 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.006s]
+2025-10-07 02:03:28,675 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.007s]
+2025-10-07 02:03:28,683 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.007s]
+2025-10-07 02:03:28,692 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.008s]
+2025-10-07 02:03:28,696 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 02:04:29,714 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.004s]
+2025-10-07 02:04:29,757 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.004s]
+2025-10-07 02:04:29,764 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.007s]
+2025-10-07 02:04:29,771 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.007s]
+2025-10-07 02:04:29,773 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 02:10:53,665 - __main__ - INFO - Database columns: ['created_at', 'publish_date', 'quality_score', 'processing_timestamp', 'authors', 'domain', 'crawler_engine', 'article_id', 'category', 'url', 'title', 'content']
+2025-10-07 02:10:53,668 - src.monitoring.system_monitor - INFO - 🚀 System monitoring started with 60s interval
+2025-10-07 02:10:53,669 - __main__ - INFO - 🚀 Starting OmniCrawler Web Dashboard on 0.0.0.0:5000
+2025-10-07 02:10:54,809 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.120s]
+2025-10-07 02:10:54,848 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.007s]
+2025-10-07 02:10:54,860 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.012s]
+2025-10-07 02:10:54,887 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.027s]
+2025-10-07 02:10:54,891 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 02:10:55,361 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.29.157:5000
+2025-10-07 02:10:55,362 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-10-07 02:11:00,030 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:11:00] "GET / HTTP/1.1" 200 -
+2025-10-07 02:11:02,458 - __main__ - WARNING - sentiment_label column not found, using default data
+2025-10-07 02:11:03,537 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:11:03] "GET /api/analytics/sentiment HTTP/1.1" 200 -
+2025-10-07 02:11:03,678 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:11:03] "GET /api/analytics/domains HTTP/1.1" 200 -
+2025-10-07 02:11:03,699 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:11:03] "GET /api/analytics/categories HTTP/1.1" 200 -
+2025-10-07 02:11:09,171 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:11:09] "[33mGET /monitoring HTTP/1.1[0m" 404 -
+2025-10-07 02:11:12,921 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:11:12] "[33mGET /monitoring HTTP/1.1[0m" 404 -
+2025-10-07 02:11:15,138 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:11:15] "[33mGET /search HTTP/1.1[0m" 404 -
+2025-10-07 02:11:18,850 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:11:18] "GET /analytics HTTP/1.1" 200 -
+2025-10-07 02:11:19,242 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:11:19] "GET /api/analytics/categories HTTP/1.1" 200 -
+2025-10-07 02:11:19,525 - __main__ - WARNING - sentiment_label column not found, using default data
+2025-10-07 02:11:19,534 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:11:19] "GET /api/analytics/domains HTTP/1.1" 200 -
+2025-10-07 02:11:19,534 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:11:19] "GET /api/analytics/sentiment HTTP/1.1" 200 -
+2025-10-07 02:11:55,912 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.008s]
+2025-10-07 02:11:55,956 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.006s]
+2025-10-07 02:11:55,964 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.007s]
+2025-10-07 02:11:55,981 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.017s]
+2025-10-07 02:11:55,983 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 02:12:57,007 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.008s]
+2025-10-07 02:12:57,052 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.007s]
+2025-10-07 02:12:57,061 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.009s]
+2025-10-07 02:12:57,071 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.010s]
+2025-10-07 02:12:57,074 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 02:15:47,745 - __main__ - INFO - Database columns: ['created_at', 'publish_date', 'quality_score', 'processing_timestamp', 'authors', 'domain', 'crawler_engine', 'article_id', 'category', 'url', 'title', 'content']
+2025-10-07 02:15:47,751 - src.monitoring.system_monitor - INFO - 🚀 System monitoring started with 60s interval
+2025-10-07 02:15:47,753 - __main__ - INFO - 🚀 Starting OmniCrawler Web Dashboard on 0.0.0.0:5000
+2025-10-07 02:15:49,132 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.185s]
+2025-10-07 02:15:49,196 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.009s]
+2025-10-07 02:15:49,225 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.027s]
+2025-10-07 02:15:49,258 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.032s]
+2025-10-07 02:15:49,263 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 02:15:49,485 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.29.157:5000
+2025-10-07 02:15:49,485 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-10-07 02:15:54,232 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:15:54] "GET / HTTP/1.1" 200 -
+2025-10-07 02:15:55,469 - __main__ - WARNING - sentiment_label column not found, using default data
+2025-10-07 02:15:55,604 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:15:55] "GET /api/analytics/sentiment HTTP/1.1" 200 -
+2025-10-07 02:15:55,618 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:15:55] "GET /api/analytics/categories HTTP/1.1" 200 -
+2025-10-07 02:15:55,827 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:15:55] "GET /api/analytics/domains HTTP/1.1" 200 -
+2025-10-07 02:15:57,609 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:15:57] "[33mGET /search HTTP/1.1[0m" 404 -
+2025-10-07 02:16:02,034 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:16:02] "GET /analytics HTTP/1.1" 200 -
+2025-10-07 02:16:02,452 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:16:02] "GET /api/analytics/categories HTTP/1.1" 200 -
+2025-10-07 02:16:02,769 - __main__ - WARNING - sentiment_label column not found, using default data
+2025-10-07 02:16:02,775 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:16:02] "GET /api/analytics/sentiment HTTP/1.1" 200 -
+2025-10-07 02:16:02,784 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:16:02] "GET /api/analytics/domains HTTP/1.1" 200 -
+2025-10-07 02:16:05,145 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:16:05] "[33mGET /monitoring HTTP/1.1[0m" 404 -
+2025-10-07 02:16:50,673 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.394s]
+2025-10-07 02:16:50,712 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.006s]
+2025-10-07 02:16:50,721 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.008s]
+2025-10-07 02:16:50,734 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.013s]
+2025-10-07 02:16:50,737 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 02:17:22,410 - __main__ - INFO - Database columns: ['created_at', 'publish_date', 'quality_score', 'processing_timestamp', 'authors', 'domain', 'crawler_engine', 'article_id', 'category', 'url', 'title', 'content']
+2025-10-07 02:17:22,423 - src.monitoring.system_monitor - INFO - 🚀 System monitoring started with 60s interval
+2025-10-07 02:17:22,424 - __main__ - INFO - 🚀 Starting OmniCrawler Web Dashboard on 0.0.0.0:5000
+2025-10-07 02:17:24,418 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.29.157:5000
+2025-10-07 02:17:24,428 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-10-07 02:17:25,165 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.588s]
+2025-10-07 02:17:25,262 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.027s]
+2025-10-07 02:17:25,433 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.171s]
+2025-10-07 02:17:25,633 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.199s]
+2025-10-07 02:17:25,711 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 02:17:28,556 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:17:28] "GET /monitoring HTTP/1.1" 200 -
+2025-10-07 02:17:28,941 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:17:28] "GET /api/monitoring/metrics HTTP/1.1" 200 -
+2025-10-07 02:17:28,979 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.010s]
+2025-10-07 02:17:28,983 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:17:28] "GET /api/monitoring/health HTTP/1.1" 200 -
+2025-10-07 02:17:29,245 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:17:29] "GET /api/monitoring/alerts HTTP/1.1" 200 -
+2025-10-07 02:17:32,220 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:17:32] "[33mGET /search HTTP/1.1[0m" 404 -
+2025-10-07 02:18:26,732 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.007s]
+2025-10-07 02:18:26,776 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.006s]
+2025-10-07 02:18:26,785 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.010s]
+2025-10-07 02:18:26,794 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.008s]
+2025-10-07 02:18:26,796 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 02:19:27,830 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.011s]
+2025-10-07 02:19:27,878 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.008s]
+2025-10-07 02:19:27,893 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.013s]
+2025-10-07 02:19:27,907 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.013s]
+2025-10-07 02:19:27,910 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 02:19:53,821 - __main__ - INFO - Database columns: ['created_at', 'publish_date', 'quality_score', 'processing_timestamp', 'authors', 'domain', 'crawler_engine', 'article_id', 'category', 'url', 'title', 'content']
+2025-10-07 02:19:53,823 - src.monitoring.system_monitor - INFO - 🚀 System monitoring started with 60s interval
+2025-10-07 02:19:53,825 - __main__ - INFO - 🚀 Starting OmniCrawler Web Dashboard on 0.0.0.0:5000
+2025-10-07 02:19:54,862 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.019s]
+2025-10-07 02:19:54,900 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.004s]
+2025-10-07 02:19:54,905 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.004s]
+2025-10-07 02:19:54,912 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.006s]
+2025-10-07 02:19:54,914 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 02:19:55,499 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.29.157:5000
+2025-10-07 02:19:55,500 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-10-07 02:19:58,020 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:19:58] "[33mGET /search HTTP/1.1[0m" 404 -
+2025-10-07 02:20:03,500 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:20:03] "GET / HTTP/1.1" 200 -
+2025-10-07 02:20:04,233 - __main__ - WARNING - sentiment_label column not found, using default data
+2025-10-07 02:20:04,367 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:20:04] "GET /api/analytics/sentiment HTTP/1.1" 200 -
+2025-10-07 02:20:04,384 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:20:04] "GET /api/analytics/categories HTTP/1.1" 200 -
+2025-10-07 02:20:04,510 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:20:04] "GET /api/analytics/domains HTTP/1.1" 200 -
+2025-10-07 02:20:04,940 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:20:04] "[33mGET /search HTTP/1.1[0m" 404 -
+2025-10-07 02:20:56,152 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.220s]
+2025-10-07 02:20:56,210 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.010s]
+2025-10-07 02:20:56,219 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.010s]
+2025-10-07 02:20:56,231 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.011s]
+2025-10-07 02:20:56,235 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 02:21:37,448 - __main__ - INFO - Database columns: ['created_at', 'publish_date', 'quality_score', 'processing_timestamp', 'authors', 'domain', 'crawler_engine', 'article_id', 'category', 'url', 'title', 'content']
+2025-10-07 02:21:37,746 - src.monitoring.system_monitor - INFO - 🚀 System monitoring started with 60s interval
+2025-10-07 02:21:37,750 - __main__ - INFO - 🚀 Starting OmniCrawler Web Dashboard on 0.0.0.0:5000
+2025-10-07 02:21:39,367 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.153s]
+2025-10-07 02:21:39,450 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.015s]
+2025-10-07 02:21:39,457 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.29.157:5000
+2025-10-07 02:21:39,459 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-10-07 02:21:39,464 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.013s]
+2025-10-07 02:21:39,480 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.017s]
+2025-10-07 02:21:39,486 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 02:21:40,874 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:21:40] "GET /search HTTP/1.1" 200 -
+2025-10-07 02:21:41,275 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:21:41] "GET /api/stats/overview HTTP/1.1" 200 -
+2025-10-07 02:21:52,581 - elastic_transport.transport - INFO - POST http://localhost:9200/news-articles/_search [status:200 duration:0.407s]
+2025-10-07 02:21:52,582 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:21:52] "GET /api/search/advanced?q=bbc&categories=politics&min_quality=0&sort_by=relevance&size=10 HTTP/1.1" 200 -
+2025-10-07 02:22:02,590 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:22:02] "GET /monitoring HTTP/1.1" 200 -
+2025-10-07 02:22:03,698 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:22:03] "GET /api/monitoring/metrics HTTP/1.1" 200 -
+2025-10-07 02:22:03,771 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.022s]
+2025-10-07 02:22:03,775 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:22:03] "GET /api/monitoring/health HTTP/1.1" 200 -
+2025-10-07 02:22:04,006 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:22:04] "GET /api/monitoring/alerts HTTP/1.1" 200 -
+2025-10-07 02:22:16,779 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:22:16] "GET / HTTP/1.1" 200 -
+2025-10-07 02:22:17,312 - __main__ - WARNING - sentiment_label column not found, using default data
+2025-10-07 02:22:17,384 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:22:17] "GET /api/analytics/sentiment HTTP/1.1" 200 -
+2025-10-07 02:22:17,392 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:22:17] "GET /api/analytics/categories HTTP/1.1" 200 -
+2025-10-07 02:22:17,637 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:22:17] "GET /api/analytics/domains HTTP/1.1" 200 -
+2025-10-07 02:22:18,156 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:22:18] "GET /monitoring HTTP/1.1" 200 -
+2025-10-07 02:22:18,537 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:22:18] "GET /api/monitoring/metrics HTTP/1.1" 200 -
+2025-10-07 02:22:18,579 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.016s]
+2025-10-07 02:22:18,588 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:22:18] "GET /api/monitoring/health HTTP/1.1" 200 -
+2025-10-07 02:22:18,840 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:22:18] "GET /api/monitoring/alerts HTTP/1.1" 200 -
+2025-10-07 02:22:19,544 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:22:19] "GET /search HTTP/1.1" 200 -
+2025-10-07 02:22:19,964 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:22:19] "GET /api/stats/overview HTTP/1.1" 200 -
+2025-10-07 02:22:21,549 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:22:21] "GET / HTTP/1.1" 200 -
+2025-10-07 02:22:21,904 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:22:21] "GET /api/analytics/categories HTTP/1.1" 200 -
+2025-10-07 02:22:22,211 - __main__ - WARNING - sentiment_label column not found, using default data
+2025-10-07 02:22:22,216 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:22:22] "GET /api/analytics/sentiment HTTP/1.1" 200 -
+2025-10-07 02:22:22,236 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:22:22] "GET /api/analytics/domains HTTP/1.1" 200 -
+2025-10-07 02:22:23,145 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:22:23] "GET /search HTTP/1.1" 200 -
+2025-10-07 02:22:23,582 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:22:23] "GET /api/stats/overview HTTP/1.1" 200 -
+2025-10-07 02:22:26,484 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:22:26] "GET / HTTP/1.1" 200 -
+2025-10-07 02:22:27,535 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:22:27] "GET /api/analytics/categories HTTP/1.1" 200 -
+2025-10-07 02:22:27,793 - __main__ - WARNING - sentiment_label column not found, using default data
+2025-10-07 02:22:27,820 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:22:27] "GET /api/analytics/sentiment HTTP/1.1" 200 -
+2025-10-07 02:22:27,845 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:22:27] "GET /api/analytics/domains HTTP/1.1" 200 -
+2025-10-07 02:22:40,505 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.006s]
+2025-10-07 02:22:40,581 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.007s]
+2025-10-07 02:22:40,588 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.006s]
+2025-10-07 02:22:40,596 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.008s]
+2025-10-07 02:22:40,598 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 02:22:43,915 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:22:43] "GET /analytics HTTP/1.1" 200 -
+2025-10-07 02:22:44,464 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:22:44] "GET /api/analytics/categories HTTP/1.1" 200 -
+2025-10-07 02:22:44,465 - __main__ - WARNING - sentiment_label column not found, using default data
+2025-10-07 02:22:44,470 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:22:44] "GET /api/analytics/sentiment HTTP/1.1" 200 -
+2025-10-07 02:22:44,820 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:22:44] "GET /api/analytics/domains HTTP/1.1" 200 -
+2025-10-07 02:22:45,199 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:22:45] "GET /search HTTP/1.1" 200 -
+2025-10-07 02:22:45,553 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:22:45] "GET /api/stats/overview HTTP/1.1" 200 -
+2025-10-07 02:22:49,123 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:22:49] "GET /analytics HTTP/1.1" 200 -
+2025-10-07 02:22:49,975 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:22:49] "GET /api/analytics/categories HTTP/1.1" 200 -
+2025-10-07 02:22:50,274 - __main__ - WARNING - sentiment_label column not found, using default data
+2025-10-07 02:22:50,296 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:22:50] "GET /api/analytics/sentiment HTTP/1.1" 200 -
+2025-10-07 02:22:50,323 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:22:50] "GET /api/analytics/domains HTTP/1.1" 200 -
+2025-10-07 02:22:50,689 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:22:50] "GET /monitoring HTTP/1.1" 200 -
+2025-10-07 02:22:51,461 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:22:51] "GET /api/monitoring/metrics HTTP/1.1" 200 -
+2025-10-07 02:22:51,475 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:22:51] "GET /api/monitoring/alerts HTTP/1.1" 200 -
+2025-10-07 02:22:51,562 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.049s]
+2025-10-07 02:22:51,567 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:22:51] "GET /api/monitoring/health HTTP/1.1" 200 -
+2025-10-07 02:22:53,222 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:22:53] "GET /api/monitoring/alerts HTTP/1.1" 200 -
+2025-10-07 02:22:57,149 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:22:57] "GET / HTTP/1.1" 200 -
+2025-10-07 02:22:57,583 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:22:57] "GET /api/analytics/categories HTTP/1.1" 200 -
+2025-10-07 02:22:57,583 - __main__ - WARNING - sentiment_label column not found, using default data
+2025-10-07 02:22:57,589 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:22:57] "GET /api/analytics/sentiment HTTP/1.1" 200 -
+2025-10-07 02:22:57,891 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:22:57] "GET /api/analytics/domains HTTP/1.1" 200 -
+2025-10-07 02:23:41,809 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.053s]
+2025-10-07 02:23:42,055 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.064s]
+2025-10-07 02:23:42,095 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.031s]
+2025-10-07 02:23:42,110 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.013s]
+2025-10-07 02:23:42,114 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 02:24:43,178 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.008s]
+2025-10-07 02:24:43,241 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.011s]
+2025-10-07 02:24:43,254 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.012s]
+2025-10-07 02:24:43,268 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.014s]
+2025-10-07 02:24:43,296 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 02:25:44,326 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.007s]
+2025-10-07 02:25:44,414 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.011s]
+2025-10-07 02:25:44,433 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.018s]
+2025-10-07 02:25:44,477 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.043s]
+2025-10-07 02:25:44,483 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 02:26:45,514 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.008s]
+2025-10-07 02:26:45,593 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.011s]
+2025-10-07 02:26:45,609 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.015s]
+2025-10-07 02:26:45,657 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.046s]
+2025-10-07 02:26:45,660 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 02:27:46,695 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.008s]
+2025-10-07 02:27:46,746 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.010s]
+2025-10-07 02:27:46,758 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.011s]
+2025-10-07 02:27:46,771 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.013s]
+2025-10-07 02:27:46,773 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 02:28:50,447 - __main__ - INFO - Database columns: ['created_at', 'publish_date', 'quality_score', 'processing_timestamp', 'authors', 'domain', 'crawler_engine', 'article_id', 'category', 'url', 'title', 'content']
+2025-10-07 02:28:50,450 - src.monitoring.system_monitor - INFO - 🚀 System monitoring started with 60s interval
+2025-10-07 02:28:50,451 - __main__ - INFO - 🚀 Starting OmniCrawler Web Dashboard on 0.0.0.0:5000
+2025-10-07 02:28:51,487 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.019s]
+2025-10-07 02:28:51,536 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.004s]
+2025-10-07 02:28:51,542 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.005s]
+2025-10-07 02:28:51,548 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.006s]
+2025-10-07 02:28:51,551 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 02:28:52,135 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.29.157:5000
+2025-10-07 02:28:52,136 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-10-07 02:28:56,744 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:28:56] "GET / HTTP/1.1" 200 -
+2025-10-07 02:28:57,978 - __main__ - WARNING - sentiment_label column not found, using default data
+2025-10-07 02:28:58,049 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:28:58] "GET /api/analytics/sentiment HTTP/1.1" 200 -
+2025-10-07 02:28:58,059 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:28:58] "GET /api/analytics/categories HTTP/1.1" 200 -
+2025-10-07 02:28:58,339 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:28:58] "GET /api/analytics/domains HTTP/1.1" 200 -
+2025-10-07 02:28:59,970 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:28:59] "GET /alerts HTTP/1.1" 200 -
+2025-10-07 02:29:00,427 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:29:00] "GET /api/alerts?limit=50 HTTP/1.1" 200 -
+2025-10-07 02:29:00,431 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:29:00] "GET /api/alerts/stats HTTP/1.1" 200 -
+2025-10-07 02:29:11,866 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:29:11] "GET /export HTTP/1.1" 200 -
+2025-10-07 02:29:12,443 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:29:12] "GET /api/stats/overview HTTP/1.1" 200 -
+2025-10-07 02:29:29,575 - src.api.data_exporter - ERROR - CSV export failed: column "sentiment_label" does not exist
+LINE 4:                     quality_score, category, sentiment_label...
+                                                     ^
+
+2025-10-07 02:29:29,576 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:29:29] "[31m[1mGET /api/export/articles/csv?domain=&category=&date_from=2025-09-06&date_to=2025-10-06&min_quality=0&limit=1000 HTTP/1.1[0m" 400 -
+2025-10-07 02:29:41,756 - src.api.data_exporter - ERROR - CSV export failed: column "sentiment_label" does not exist
+LINE 4:                     quality_score, category, sentiment_label...
+                                                     ^
+
+2025-10-07 02:29:41,757 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:29:41] "[31m[1mGET /api/export/articles/csv?domain=&category=&date_from=2025-09-06&date_to=2025-10-06&min_quality=0&limit=1000 HTTP/1.1[0m" 400 -
+2025-10-07 02:29:52,747 - src.alerts.alert_engine - ERROR - Dashboard alert storage failed: Object of type Decimal is not JSON serializable
+2025-10-07 02:29:52,747 - src.monitoring.system_monitor - WARNING - 🚨 ALERT: Only 0.0 articles processed in last hour (threshold: 10.0)
+2025-10-07 02:29:52,846 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.092s]
+2025-10-07 02:29:52,946 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.031s]
+2025-10-07 02:29:52,964 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.011s]
+2025-10-07 02:29:52,982 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.018s]
+2025-10-07 02:29:52,987 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 02:30:53,997 - src.alerts.alert_engine - ERROR - Dashboard alert storage failed: Object of type Decimal is not JSON serializable
+2025-10-07 02:30:53,997 - src.monitoring.system_monitor - WARNING - 🚨 ALERT: Only 0.0 articles processed in last hour (threshold: 10.0)
+2025-10-07 02:30:54,005 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.004s]
+2025-10-07 02:30:54,051 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.004s]
+2025-10-07 02:30:54,058 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.007s]
+2025-10-07 02:30:54,065 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.007s]
+2025-10-07 02:30:54,067 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 02:31:55,082 - src.alerts.alert_engine - ERROR - Dashboard alert storage failed: Object of type Decimal is not JSON serializable
+2025-10-07 02:31:55,082 - src.monitoring.system_monitor - WARNING - 🚨 ALERT: Only 0.0 articles processed in last hour (threshold: 10.0)
+2025-10-07 02:31:55,094 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.006s]
+2025-10-07 02:31:55,142 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.010s]
+2025-10-07 02:31:55,151 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.008s]
+2025-10-07 02:31:55,162 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.010s]
+2025-10-07 02:31:55,171 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 02:32:56,186 - src.alerts.alert_engine - ERROR - Dashboard alert storage failed: Object of type Decimal is not JSON serializable
+2025-10-07 02:32:56,187 - src.alerts.alert_engine - ERROR - Dashboard alert storage failed: Object of type Decimal is not JSON serializable
+2025-10-07 02:32:56,187 - src.monitoring.system_monitor - WARNING - 🚨 ALERT: CPU usage is 94.1% (threshold: 85.0%)
+2025-10-07 02:32:56,187 - src.monitoring.system_monitor - WARNING - 🚨 ALERT: Only 0.0 articles processed in last hour (threshold: 10.0)
+2025-10-07 02:32:56,198 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.006s]
+2025-10-07 02:32:56,284 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.006s]
+2025-10-07 02:32:56,291 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.007s]
+2025-10-07 02:32:56,304 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.013s]
+2025-10-07 02:32:56,307 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 02:34:41,631 - __main__ - INFO - Database columns: ['content_length', 'publish_date', 'quality_score', 'processing_timestamp', 'created_at', 'domain', 'sentiment_label', 'article_id', 'category', 'crawler_engine', 'url', 'title', 'content', 'authors']
+2025-10-07 02:34:41,634 - src.monitoring.system_monitor - INFO - 🚀 System monitoring started with 60s interval
+2025-10-07 02:34:41,635 - __main__ - INFO - 🚀 Starting OmniCrawler Web Dashboard on 0.0.0.0:5000
+2025-10-07 02:34:42,835 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.048s]
+2025-10-07 02:34:42,958 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.007s]
+2025-10-07 02:34:42,980 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.008s]
+2025-10-07 02:34:43,075 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.065s]
+2025-10-07 02:34:43,088 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 02:34:43,320 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.29.157:5000
+2025-10-07 02:34:43,321 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-10-07 02:34:48,761 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:34:48] "GET /export HTTP/1.1" 200 -
+2025-10-07 02:34:50,218 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:34:50] "GET /api/stats/overview HTTP/1.1" 200 -
+2025-10-07 02:34:52,441 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:34:52] "GET / HTTP/1.1" 200 -
+2025-10-07 02:34:53,092 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:34:53] "GET /api/analytics/categories HTTP/1.1" 200 -
+2025-10-07 02:34:53,230 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:34:53] "GET /api/analytics/sentiment HTTP/1.1" 200 -
+2025-10-07 02:34:53,268 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:34:53] "GET /api/analytics/domains HTTP/1.1" 200 -
+2025-10-07 02:34:53,674 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:34:53] "GET /export HTTP/1.1" 200 -
+2025-10-07 02:34:54,042 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:34:54] "GET /api/stats/overview HTTP/1.1" 200 -
+2025-10-07 02:34:56,666 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:34:56] "[31m[1mGET /api/export/articles/csv?domain=&category=&date_from=2025-09-06&date_to=2025-10-06&min_quality=0&limit=1000 HTTP/1.1[0m" 400 -
+2025-10-07 02:35:05,438 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:35:05] "[31m[1mGET /api/export/articles/csv?domain=&category=&date_from=2025-09-05&date_to=2025-10-06&min_quality=0&limit=1000 HTTP/1.1[0m" 400 -
+2025-10-07 02:35:10,824 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:35:10] "[31m[1mGET /api/export/articles/json?domain=&category=&date_from=2025-09-05&date_to=2025-10-06&min_quality=0&limit=1000 HTTP/1.1[0m" 400 -
+2025-10-07 02:35:20,540 - src.api.data_exporter - ERROR - Analytics report export failed: Object of type Decimal is not JSON serializable
+2025-10-07 02:35:20,541 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:35:20] "[31m[1mGET /api/export/analytics?days=7 HTTP/1.1[0m" 400 -
+2025-10-07 02:35:44,116 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.006s]
+2025-10-07 02:35:44,169 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.005s]
+2025-10-07 02:35:44,176 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.007s]
+2025-10-07 02:35:44,182 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.005s]
+2025-10-07 02:35:44,184 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 02:35:59,311 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:35:59] "[31m[1mGET /api/export/articles/json?domain=&category=&date_from=2025-09-05&date_to=2025-10-06&min_quality=0&limit=1000 HTTP/1.1[0m" 400 -
+2025-10-07 02:36:21,847 - src.api.data_exporter - ERROR - Analytics report export failed: Object of type Decimal is not JSON serializable
+2025-10-07 02:36:21,848 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 02:36:21] "[31m[1mGET /api/export/analytics?days=7 HTTP/1.1[0m" 400 -
+2025-10-07 02:36:45,237 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.006s]
+2025-10-07 02:36:45,279 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.009s]
+2025-10-07 02:36:45,291 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.007s]
+2025-10-07 02:36:45,305 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.010s]
+2025-10-07 02:36:45,307 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 02:37:46,320 - src.alerts.alert_engine - ERROR - Dashboard alert storage failed: Object of type Decimal is not JSON serializable
+2025-10-07 02:37:46,320 - src.monitoring.system_monitor - WARNING - 🚨 ALERT: CPU usage is 92.2% (threshold: 85.0%)
+2025-10-07 02:37:46,335 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.008s]
+2025-10-07 02:37:46,382 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.011s]
+2025-10-07 02:37:46,391 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.008s]
+2025-10-07 02:37:46,406 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.015s]
+2025-10-07 02:37:46,409 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 02:38:47,429 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.005s]
+2025-10-07 02:38:47,466 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.004s]
+2025-10-07 02:38:47,471 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.005s]
+2025-10-07 02:38:47,477 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.006s]
+2025-10-07 02:38:47,480 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 02:39:48,499 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.004s]
+2025-10-07 02:39:48,552 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.009s]
+2025-10-07 02:39:48,558 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.006s]
+2025-10-07 02:39:48,564 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.005s]
+2025-10-07 02:39:48,566 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 02:40:49,662 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.007s]
+2025-10-07 02:40:49,737 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.026s]
+2025-10-07 02:40:49,755 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.016s]
+2025-10-07 02:40:49,804 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.031s]
+2025-10-07 02:40:49,808 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 02:41:50,832 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.006s]
+2025-10-07 02:41:50,896 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.005s]
+2025-10-07 02:41:50,900 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.005s]
+2025-10-07 02:41:50,908 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.008s]
+2025-10-07 02:41:50,910 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 02:42:51,929 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.003s]
+2025-10-07 02:42:51,979 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.004s]
+2025-10-07 02:42:51,984 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.004s]
+2025-10-07 02:42:51,989 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.005s]
+2025-10-07 02:42:51,991 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 02:43:53,015 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.005s]
+2025-10-07 02:43:53,050 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.006s]
+2025-10-07 02:43:53,067 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.015s]
+2025-10-07 02:43:53,083 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.010s]
+2025-10-07 02:43:53,087 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 02:44:54,102 - src.alerts.alert_engine - ERROR - Dashboard alert storage failed: Object of type Decimal is not JSON serializable
+2025-10-07 02:44:54,102 - src.monitoring.system_monitor - WARNING - 🚨 ALERT: CPU usage is 93.7% (threshold: 85.0%)
+2025-10-07 02:44:54,121 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.007s]
+2025-10-07 02:44:54,158 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.005s]
+2025-10-07 02:44:54,166 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.007s]
+2025-10-07 02:44:54,174 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.008s]
+2025-10-07 02:44:54,176 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 02:45:55,197 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.005s]
+2025-10-07 02:45:55,228 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.004s]
+2025-10-07 02:45:55,233 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.004s]
+2025-10-07 02:45:55,240 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.006s]
+2025-10-07 02:45:55,243 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 02:46:56,333 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.027s]
+2025-10-07 02:46:56,419 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.012s]
+2025-10-07 02:46:56,428 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.009s]
+2025-10-07 02:46:56,440 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.011s]
+2025-10-07 02:46:56,444 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 02:47:57,456 - src.alerts.alert_engine - ERROR - Dashboard alert storage failed: Object of type Decimal is not JSON serializable
+2025-10-07 02:47:57,457 - src.monitoring.system_monitor - WARNING - 🚨 ALERT: CPU usage is 87.4% (threshold: 85.0%)
+2025-10-07 02:47:57,477 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.008s]
+2025-10-07 02:47:57,524 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.010s]
+2025-10-07 02:47:57,534 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.008s]
+2025-10-07 02:47:57,545 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.012s]
+2025-10-07 02:47:57,548 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 02:48:58,570 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.006s]
+2025-10-07 02:48:58,613 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.004s]
+2025-10-07 02:48:58,620 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.006s]
+2025-10-07 02:48:58,628 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.008s]
+2025-10-07 02:48:58,630 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 02:49:59,789 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.057s]
+2025-10-07 02:49:59,939 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.067s]
+2025-10-07 02:50:00,005 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.052s]
+2025-10-07 02:50:00,039 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.033s]
+2025-10-07 02:50:00,068 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 02:51:01,182 - src.alerts.alert_engine - ERROR - Dashboard alert storage failed: Object of type Decimal is not JSON serializable
+2025-10-07 02:51:01,183 - src.monitoring.system_monitor - WARNING - 🚨 ALERT: CPU usage is 97.5% (threshold: 85.0%)
+2025-10-07 02:51:01,212 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.010s]
+2025-10-07 02:51:01,267 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.007s]
+2025-10-07 02:51:01,279 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.011s]
+2025-10-07 02:51:01,294 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.014s]
+2025-10-07 02:51:01,298 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 02:52:02,329 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.004s]
+2025-10-07 02:52:02,376 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.007s]
+2025-10-07 02:52:02,380 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.005s]
+2025-10-07 02:52:02,388 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.006s]
+2025-10-07 02:52:02,391 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 02:53:03,425 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.005s]
+2025-10-07 02:53:03,462 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.004s]
+2025-10-07 02:53:03,467 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.004s]
+2025-10-07 02:53:03,475 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.006s]
+2025-10-07 02:53:03,477 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 02:54:04,752 - src.alerts.alert_engine - ERROR - Dashboard alert storage failed: Object of type Decimal is not JSON serializable
+2025-10-07 02:54:04,755 - src.monitoring.system_monitor - WARNING - 🚨 ALERT: CPU usage is 99.4% (threshold: 85.0%)
+2025-10-07 02:54:04,780 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.008s]
+2025-10-07 02:54:04,861 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.014s]
+2025-10-07 02:54:04,870 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.006s]
+2025-10-07 02:54:04,881 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.011s]
+2025-10-07 02:54:04,884 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 02:55:05,909 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.005s]
+2025-10-07 02:55:05,951 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.009s]
+2025-10-07 02:55:05,959 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.008s]
+2025-10-07 02:55:05,967 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.007s]
+2025-10-07 02:55:05,971 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 02:56:06,998 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.008s]
+2025-10-07 02:56:07,038 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.004s]
+2025-10-07 02:56:07,046 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.008s]
+2025-10-07 02:56:07,055 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.009s]
+2025-10-07 02:56:07,058 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 02:57:08,108 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.009s]
+2025-10-07 02:57:08,154 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.007s]
+2025-10-07 02:57:08,162 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.008s]
+2025-10-07 02:57:08,170 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.008s]
+2025-10-07 02:57:08,173 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 02:58:09,195 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.005s]
+2025-10-07 02:58:09,223 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.005s]
+2025-10-07 02:58:09,228 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.006s]
+2025-10-07 02:58:09,238 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.009s]
+2025-10-07 02:58:09,240 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 02:59:10,263 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.006s]
+2025-10-07 02:59:10,291 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.006s]
+2025-10-07 02:59:10,295 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.004s]
+2025-10-07 02:59:10,301 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.005s]
+2025-10-07 02:59:10,303 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 03:00:11,328 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.006s]
+2025-10-07 03:00:11,542 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.188s]
+2025-10-07 03:00:11,547 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.006s]
+2025-10-07 03:00:11,555 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.008s]
+2025-10-07 03:00:11,557 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 03:01:12,580 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.005s]
+2025-10-07 03:01:12,619 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.007s]
+2025-10-07 03:01:12,627 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.006s]
+2025-10-07 03:01:12,637 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.010s]
+2025-10-07 03:01:12,641 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 03:02:14,712 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.084s]
+2025-10-07 03:02:15,210 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.098s]
+2025-10-07 03:02:15,236 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.015s]
+2025-10-07 03:02:15,268 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.024s]
+2025-10-07 03:02:15,293 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 03:03:16,589 - src.alerts.alert_engine - ERROR - Dashboard alert storage failed: Object of type Decimal is not JSON serializable
+2025-10-07 03:03:16,590 - src.monitoring.system_monitor - WARNING - 🚨 ALERT: CPU usage is 100.0% (threshold: 85.0%)
+2025-10-07 03:03:16,615 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.010s]
+2025-10-07 03:03:16,661 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.007s]
+2025-10-07 03:03:16,668 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.006s]
+2025-10-07 03:03:16,679 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.011s]
+2025-10-07 03:03:16,683 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 03:04:17,705 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.004s]
+2025-10-07 03:04:17,736 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.004s]
+2025-10-07 03:04:17,742 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.006s]
+2025-10-07 03:04:17,756 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.014s]
+2025-10-07 03:04:17,758 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 03:05:18,780 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.006s]
+2025-10-07 03:05:18,816 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.004s]
+2025-10-07 03:05:18,824 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.007s]
+2025-10-07 03:05:18,831 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.007s]
+2025-10-07 03:05:18,834 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 03:06:19,859 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.009s]
+2025-10-07 03:06:19,895 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.006s]
+2025-10-07 03:06:19,902 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.006s]
+2025-10-07 03:06:19,910 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.007s]
+2025-10-07 03:06:19,912 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 03:07:20,939 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.006s]
+2025-10-07 03:07:20,993 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.013s]
+2025-10-07 03:07:20,999 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.006s]
+2025-10-07 03:07:21,008 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.008s]
+2025-10-07 03:07:21,013 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 03:08:22,036 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.008s]
+2025-10-07 03:08:22,070 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.005s]
+2025-10-07 03:08:22,075 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.005s]
+2025-10-07 03:08:22,079 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.005s]
+2025-10-07 03:08:22,082 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 03:09:23,102 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.003s]
+2025-10-07 03:09:23,137 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.006s]
+2025-10-07 03:09:23,141 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.004s]
+2025-10-07 03:09:23,152 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.011s]
+2025-10-07 03:09:23,155 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 03:10:24,174 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.005s]
+2025-10-07 03:10:24,217 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.006s]
+2025-10-07 03:10:24,221 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.005s]
+2025-10-07 03:10:24,229 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.008s]
+2025-10-07 03:10:24,231 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 03:11:25,256 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.004s]
+2025-10-07 03:11:25,302 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.003s]
+2025-10-07 03:11:25,310 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.007s]
+2025-10-07 03:11:25,319 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.008s]
+2025-10-07 03:11:25,322 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 03:12:26,345 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.006s]
+2025-10-07 03:12:26,390 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.004s]
+2025-10-07 03:12:26,397 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.005s]
+2025-10-07 03:12:26,404 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.006s]
+2025-10-07 03:12:26,407 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 03:13:27,429 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.005s]
+2025-10-07 03:13:27,455 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.003s]
+2025-10-07 03:13:27,461 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.005s]
+2025-10-07 03:13:27,467 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.006s]
+2025-10-07 03:13:27,469 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 03:14:28,484 - src.alerts.alert_engine - ERROR - Dashboard alert storage failed: Object of type Decimal is not JSON serializable
+2025-10-07 03:14:28,484 - src.alerts.alert_engine - ERROR - Dashboard alert storage failed: Object of type Decimal is not JSON serializable
+2025-10-07 03:14:28,484 - src.monitoring.system_monitor - WARNING - 🚨 ALERT: CPU usage is 97.1% (threshold: 85.0%)
+2025-10-07 03:14:28,486 - src.monitoring.system_monitor - WARNING - 🚨 ALERT: Memory usage is 94.6% (threshold: 90.0%)
+2025-10-07 03:14:28,517 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.018s]
+2025-10-07 03:14:28,577 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.010s]
+2025-10-07 03:14:28,590 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.013s]
+2025-10-07 03:14:28,607 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.015s]
+2025-10-07 03:14:28,611 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 03:15:29,647 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.017s]
+2025-10-07 03:15:29,792 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.015s]
+2025-10-07 03:15:29,803 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.010s]
+2025-10-07 03:15:29,833 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.027s]
+2025-10-07 03:15:29,837 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 03:16:30,877 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.006s]
+2025-10-07 03:16:30,924 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.006s]
+2025-10-07 03:16:30,932 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.008s]
+2025-10-07 03:16:30,941 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.008s]
+2025-10-07 03:16:30,945 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 03:17:31,966 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.005s]
+2025-10-07 03:17:32,007 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.006s]
+2025-10-07 03:17:32,011 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.004s]
+2025-10-07 03:17:32,016 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.005s]
+2025-10-07 03:17:32,018 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 03:18:33,047 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.005s]
+2025-10-07 03:18:33,087 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.008s]
+2025-10-07 03:18:33,094 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.006s]
+2025-10-07 03:18:33,127 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.032s]
+2025-10-07 03:18:33,129 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 03:19:34,151 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.005s]
+2025-10-07 03:19:34,181 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.003s]
+2025-10-07 03:19:34,188 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.007s]
+2025-10-07 03:19:34,195 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.006s]
+2025-10-07 03:19:34,199 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 03:20:35,236 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.015s]
+2025-10-07 03:20:35,271 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.005s]
+2025-10-07 03:20:35,277 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.006s]
+2025-10-07 03:20:35,290 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.012s]
+2025-10-07 03:20:35,292 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 03:21:36,321 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.012s]
+2025-10-07 03:21:36,368 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.005s]
+2025-10-07 03:21:36,375 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.007s]
+2025-10-07 03:21:36,383 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.009s]
+2025-10-07 03:21:36,385 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 03:22:37,407 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.005s]
+2025-10-07 03:22:37,455 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.005s]
+2025-10-07 03:22:37,460 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.005s]
+2025-10-07 03:22:37,466 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.006s]
+2025-10-07 03:22:37,468 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 03:23:38,488 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.004s]
+2025-10-07 03:23:38,530 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.004s]
+2025-10-07 03:23:38,534 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.004s]
+2025-10-07 03:23:38,540 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.006s]
+2025-10-07 03:23:38,542 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 03:24:39,566 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.007s]
+2025-10-07 03:24:39,598 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.006s]
+2025-10-07 03:24:39,604 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.005s]
+2025-10-07 03:24:39,609 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.005s]
+2025-10-07 03:24:39,611 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 03:25:40,635 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.003s]
+2025-10-07 03:25:40,670 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.005s]
+2025-10-07 03:25:40,677 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.006s]
+2025-10-07 03:25:40,683 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.006s]
+2025-10-07 03:25:40,686 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 03:26:41,707 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.003s]
+2025-10-07 03:26:41,749 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.004s]
+2025-10-07 03:26:41,752 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.003s]
+2025-10-07 03:26:41,759 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.006s]
+2025-10-07 03:26:41,761 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 03:27:42,795 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.008s]
+2025-10-07 03:27:42,850 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.007s]
+2025-10-07 03:27:42,861 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.009s]
+2025-10-07 03:27:42,870 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.008s]
+2025-10-07 03:27:42,875 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 03:28:43,900 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.006s]
+2025-10-07 03:28:43,929 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.005s]
+2025-10-07 03:28:43,935 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.007s]
+2025-10-07 03:28:43,943 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.008s]
+2025-10-07 03:28:43,945 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 03:29:44,965 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.004s]
+2025-10-07 03:29:45,012 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.004s]
+2025-10-07 03:29:45,017 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.004s]
+2025-10-07 03:29:45,025 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.008s]
+2025-10-07 03:29:45,027 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 03:30:46,097 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.005s]
+2025-10-07 03:30:46,146 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.011s]
+2025-10-07 03:30:46,160 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.015s]
+2025-10-07 03:30:46,174 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.013s]
+2025-10-07 03:30:46,182 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 03:31:47,207 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.006s]
+2025-10-07 03:31:47,241 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.005s]
+2025-10-07 03:31:47,247 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.007s]
+2025-10-07 03:31:47,253 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.006s]
+2025-10-07 03:31:47,255 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 03:32:48,275 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.004s]
+2025-10-07 03:32:48,304 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.005s]
+2025-10-07 03:32:48,309 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.005s]
+2025-10-07 03:32:48,315 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.007s]
+2025-10-07 03:32:48,319 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 03:33:49,340 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.004s]
+2025-10-07 03:33:49,384 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.005s]
+2025-10-07 03:33:49,389 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.005s]
+2025-10-07 03:33:49,396 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.007s]
+2025-10-07 03:33:49,399 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 03:34:50,416 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.003s]
+2025-10-07 03:34:50,457 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.004s]
+2025-10-07 03:34:50,462 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.004s]
+2025-10-07 03:34:50,468 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.006s]
+2025-10-07 03:34:50,470 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 03:35:51,490 - src.alerts.alert_engine - ERROR - Dashboard alert storage failed: Object of type Decimal is not JSON serializable
+2025-10-07 03:35:51,490 - src.monitoring.system_monitor - WARNING - 🚨 ALERT: Only 0.0 articles processed in last hour (threshold: 10.0)
+2025-10-07 03:35:51,507 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.008s]
+2025-10-07 03:35:51,562 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.011s]
+2025-10-07 03:35:51,569 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.008s]
+2025-10-07 03:35:51,589 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.018s]
+2025-10-07 03:35:51,594 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 03:36:52,631 - src.alerts.alert_engine - ERROR - Dashboard alert storage failed: Object of type Decimal is not JSON serializable
+2025-10-07 03:36:52,631 - src.monitoring.system_monitor - WARNING - 🚨 ALERT: Only 0.0 articles processed in last hour (threshold: 10.0)
+2025-10-07 03:36:52,645 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.006s]
+2025-10-07 03:36:52,695 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.005s]
+2025-10-07 03:36:52,701 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.005s]
+2025-10-07 03:36:52,707 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.006s]
+2025-10-07 03:36:52,709 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 03:37:53,722 - src.alerts.alert_engine - ERROR - Dashboard alert storage failed: Object of type Decimal is not JSON serializable
+2025-10-07 03:37:53,723 - src.monitoring.system_monitor - WARNING - 🚨 ALERT: Only 0.0 articles processed in last hour (threshold: 10.0)
+2025-10-07 03:37:53,739 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.011s]
+2025-10-07 03:37:53,782 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.008s]
+2025-10-07 03:37:53,787 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.005s]
+2025-10-07 03:37:53,795 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.007s]
+2025-10-07 03:37:53,797 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 03:38:54,809 - src.alerts.alert_engine - ERROR - Dashboard alert storage failed: Object of type Decimal is not JSON serializable
+2025-10-07 03:38:54,809 - src.monitoring.system_monitor - WARNING - 🚨 ALERT: Only 0.0 articles processed in last hour (threshold: 10.0)
+2025-10-07 03:38:54,817 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.006s]
+2025-10-07 03:38:54,849 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.003s]
+2025-10-07 03:38:54,855 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.005s]
+2025-10-07 03:38:54,863 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.006s]
+2025-10-07 03:38:54,865 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 03:39:55,935 - src.alerts.alert_engine - ERROR - Dashboard alert storage failed: Object of type Decimal is not JSON serializable
+2025-10-07 03:39:55,943 - src.monitoring.system_monitor - WARNING - 🚨 ALERT: Only 0.0 articles processed in last hour (threshold: 10.0)
+2025-10-07 03:39:55,986 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.027s]
+2025-10-07 03:39:56,081 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.010s]
+2025-10-07 03:39:56,104 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.010s]
+2025-10-07 03:39:56,119 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.013s]
+2025-10-07 03:39:56,123 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 03:40:57,136 - src.alerts.alert_engine - ERROR - Dashboard alert storage failed: Object of type Decimal is not JSON serializable
+2025-10-07 03:40:57,137 - src.monitoring.system_monitor - WARNING - 🚨 ALERT: Only 0.0 articles processed in last hour (threshold: 10.0)
+2025-10-07 03:40:57,151 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.011s]
+2025-10-07 03:40:57,190 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.009s]
+2025-10-07 03:40:57,199 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.008s]
+2025-10-07 03:40:57,206 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.006s]
+2025-10-07 03:40:57,208 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 03:41:58,219 - src.alerts.alert_engine - ERROR - Dashboard alert storage failed: Object of type Decimal is not JSON serializable
+2025-10-07 03:41:58,219 - src.monitoring.system_monitor - WARNING - 🚨 ALERT: Only 0.0 articles processed in last hour (threshold: 10.0)
+2025-10-07 03:41:58,228 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.005s]
+2025-10-07 03:41:58,277 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.005s]
+2025-10-07 03:41:58,282 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.005s]
+2025-10-07 03:41:58,288 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.006s]
+2025-10-07 03:41:58,290 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 03:42:59,300 - src.alerts.alert_engine - ERROR - Dashboard alert storage failed: Object of type Decimal is not JSON serializable
+2025-10-07 03:42:59,301 - src.monitoring.system_monitor - WARNING - 🚨 ALERT: Only 0.0 articles processed in last hour (threshold: 10.0)
+2025-10-07 03:42:59,307 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.003s]
+2025-10-07 03:42:59,341 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.006s]
+2025-10-07 03:42:59,346 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.005s]
+2025-10-07 03:42:59,354 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.007s]
+2025-10-07 03:42:59,356 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 03:44:00,366 - src.alerts.alert_engine - ERROR - Dashboard alert storage failed: Object of type Decimal is not JSON serializable
+2025-10-07 03:44:00,366 - src.monitoring.system_monitor - WARNING - 🚨 ALERT: Only 0.0 articles processed in last hour (threshold: 10.0)
+2025-10-07 03:44:00,374 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.005s]
+2025-10-07 03:44:00,412 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.006s]
+2025-10-07 03:44:00,417 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.005s]
+2025-10-07 03:44:00,423 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.005s]
+2025-10-07 03:44:00,425 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 03:45:01,440 - src.alerts.alert_engine - ERROR - Dashboard alert storage failed: Object of type Decimal is not JSON serializable
+2025-10-07 03:45:01,440 - src.monitoring.system_monitor - WARNING - 🚨 ALERT: Only 0.0 articles processed in last hour (threshold: 10.0)
+2025-10-07 03:45:01,455 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.010s]
+2025-10-07 03:45:01,503 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.006s]
+2025-10-07 03:45:01,513 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.009s]
+2025-10-07 03:45:01,524 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.009s]
+2025-10-07 03:45:01,528 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 03:46:02,540 - src.alerts.alert_engine - ERROR - Dashboard alert storage failed: Object of type Decimal is not JSON serializable
+2025-10-07 03:46:02,541 - src.alerts.alert_engine - ERROR - Dashboard alert storage failed: Object of type Decimal is not JSON serializable
+2025-10-07 03:46:02,541 - src.monitoring.system_monitor - WARNING - 🚨 ALERT: CPU usage is 94.1% (threshold: 85.0%)
+2025-10-07 03:46:02,542 - src.monitoring.system_monitor - WARNING - 🚨 ALERT: Only 0.0 articles processed in last hour (threshold: 10.0)
+2025-10-07 03:46:02,550 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.005s]
+2025-10-07 03:46:02,592 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.008s]
+2025-10-07 03:46:02,600 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.008s]
+2025-10-07 03:46:02,608 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.008s]
+2025-10-07 03:46:02,611 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 03:47:03,622 - src.alerts.alert_engine - ERROR - Dashboard alert storage failed: Object of type Decimal is not JSON serializable
+2025-10-07 03:47:03,624 - src.monitoring.system_monitor - WARNING - 🚨 ALERT: Only 0.0 articles processed in last hour (threshold: 10.0)
+2025-10-07 03:47:03,632 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.005s]
+2025-10-07 03:47:03,670 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.006s]
+2025-10-07 03:47:03,676 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.005s]
+2025-10-07 03:47:03,690 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.014s]
+2025-10-07 03:47:03,692 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 03:48:04,703 - src.alerts.alert_engine - ERROR - Dashboard alert storage failed: Object of type Decimal is not JSON serializable
+2025-10-07 03:48:04,703 - src.monitoring.system_monitor - WARNING - 🚨 ALERT: Only 0.0 articles processed in last hour (threshold: 10.0)
+2025-10-07 03:48:04,711 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.005s]
+2025-10-07 03:48:04,738 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.004s]
+2025-10-07 03:48:04,743 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.004s]
+2025-10-07 03:48:04,748 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.005s]
+2025-10-07 03:48:04,750 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 03:49:05,763 - src.alerts.alert_engine - ERROR - Dashboard alert storage failed: Object of type Decimal is not JSON serializable
+2025-10-07 03:49:05,763 - src.monitoring.system_monitor - WARNING - 🚨 ALERT: Only 0.0 articles processed in last hour (threshold: 10.0)
+2025-10-07 03:49:05,774 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.007s]
+2025-10-07 03:49:05,824 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.003s]
+2025-10-07 03:49:05,831 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.006s]
+2025-10-07 03:49:05,842 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.011s]
+2025-10-07 03:49:05,844 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 03:50:06,858 - src.alerts.alert_engine - ERROR - Dashboard alert storage failed: Object of type Decimal is not JSON serializable
+2025-10-07 03:50:06,858 - src.monitoring.system_monitor - WARNING - 🚨 ALERT: Only 0.0 articles processed in last hour (threshold: 10.0)
+2025-10-07 03:50:06,865 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.004s]
+2025-10-07 03:50:06,907 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.010s]
+2025-10-07 03:50:06,918 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.009s]
+2025-10-07 03:50:06,924 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.006s]
+2025-10-07 03:50:06,927 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 03:51:07,938 - src.alerts.alert_engine - ERROR - Dashboard alert storage failed: Object of type Decimal is not JSON serializable
+2025-10-07 03:51:07,938 - src.monitoring.system_monitor - WARNING - 🚨 ALERT: Only 0.0 articles processed in last hour (threshold: 10.0)
+2025-10-07 03:51:07,945 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.004s]
+2025-10-07 03:51:07,978 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.006s]
+2025-10-07 03:51:07,983 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.005s]
+2025-10-07 03:51:07,988 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.005s]
+2025-10-07 03:51:07,990 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 03:52:08,999 - src.alerts.alert_engine - ERROR - Dashboard alert storage failed: Object of type Decimal is not JSON serializable
+2025-10-07 03:52:09,000 - src.monitoring.system_monitor - WARNING - 🚨 ALERT: Only 0.0 articles processed in last hour (threshold: 10.0)
+2025-10-07 03:52:09,006 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.004s]
+2025-10-07 03:52:09,034 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.005s]
+2025-10-07 03:52:09,039 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.005s]
+2025-10-07 03:52:09,047 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.007s]
+2025-10-07 03:52:09,048 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 03:53:10,058 - src.alerts.alert_engine - ERROR - Dashboard alert storage failed: Object of type Decimal is not JSON serializable
+2025-10-07 03:53:10,058 - src.monitoring.system_monitor - WARNING - 🚨 ALERT: Only 0.0 articles processed in last hour (threshold: 10.0)
+2025-10-07 03:53:10,067 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.006s]
+2025-10-07 03:53:10,105 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.004s]
+2025-10-07 03:53:10,110 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.005s]
+2025-10-07 03:53:10,115 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.005s]
+2025-10-07 03:53:10,116 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 03:54:11,126 - src.alerts.alert_engine - ERROR - Dashboard alert storage failed: Object of type Decimal is not JSON serializable
+2025-10-07 03:54:11,126 - src.monitoring.system_monitor - WARNING - 🚨 ALERT: Only 0.0 articles processed in last hour (threshold: 10.0)
+2025-10-07 03:54:11,134 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.004s]
+2025-10-07 03:54:11,161 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.005s]
+2025-10-07 03:54:11,165 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.004s]
+2025-10-07 03:54:11,169 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.005s]
+2025-10-07 03:54:11,171 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 03:55:12,184 - src.alerts.alert_engine - ERROR - Dashboard alert storage failed: Object of type Decimal is not JSON serializable
+2025-10-07 03:55:12,184 - src.monitoring.system_monitor - WARNING - 🚨 ALERT: Only 0.0 articles processed in last hour (threshold: 10.0)
+2025-10-07 03:55:12,193 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.005s]
+2025-10-07 03:55:12,238 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.012s]
+2025-10-07 03:55:12,244 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.005s]
+2025-10-07 03:55:12,254 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.011s]
+2025-10-07 03:55:12,257 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 04:13:12,920 - src.alerts.alert_engine - ERROR - Dashboard alert storage failed: Object of type Decimal is not JSON serializable
+2025-10-07 04:13:12,984 - src.alerts.alert_engine - ERROR - Dashboard alert storage failed: Object of type Decimal is not JSON serializable
+2025-10-07 04:13:13,005 - src.monitoring.system_monitor - WARNING - 🚨 ALERT: CPU usage is 100.0% (threshold: 85.0%)
+2025-10-07 04:13:13,030 - src.monitoring.system_monitor - WARNING - 🚨 ALERT: Only 0.0 articles processed in last hour (threshold: 10.0)
+2025-10-07 04:13:13,590 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.272s]
+2025-10-07 04:13:14,978 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.008s]
+2025-10-07 04:13:14,987 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.006s]
+2025-10-07 04:13:14,998 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.010s]
+2025-10-07 04:13:15,002 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 06:14:05,463 - src.alerts.alert_engine - ERROR - Dashboard alert storage failed: Object of type Decimal is not JSON serializable
+2025-10-07 06:14:05,470 - src.alerts.alert_engine - ERROR - Dashboard alert storage failed: Object of type Decimal is not JSON serializable
+2025-10-07 06:14:05,479 - src.monitoring.system_monitor - WARNING - 🚨 ALERT: CPU usage is 100.0% (threshold: 85.0%)
+2025-10-07 06:14:05,484 - src.monitoring.system_monitor - WARNING - 🚨 ALERT: Only 0.0 articles processed in last hour (threshold: 10.0)
+2025-10-07 06:14:06,111 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.300s]
+2025-10-07 06:14:07,658 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.304s]
+2025-10-07 06:14:07,908 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.249s]
+2025-10-07 06:14:07,937 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.027s]
+2025-10-07 06:14:07,986 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 13:16:49,424 - src.alerts.alert_engine - ERROR - Dashboard alert storage failed: Object of type Decimal is not JSON serializable
+2025-10-07 13:16:49,476 - src.alerts.alert_engine - ERROR - Dashboard alert storage failed: Object of type Decimal is not JSON serializable
+2025-10-07 13:16:49,478 - src.alerts.alert_engine - ERROR - Dashboard alert storage failed: Object of type Decimal is not JSON serializable
+2025-10-07 13:16:49,479 - src.monitoring.system_monitor - WARNING - 🚨 ALERT: CPU usage is 89.3% (threshold: 85.0%)
+2025-10-07 13:16:49,484 - src.monitoring.system_monitor - WARNING - 🚨 ALERT: Memory usage is 99.7% (threshold: 90.0%)
+2025-10-07 13:16:49,484 - src.monitoring.system_monitor - WARNING - 🚨 ALERT: Only 0.0 articles processed in last hour (threshold: 10.0)
+2025-10-07 13:16:50,209 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.509s]
+2025-10-07 13:16:51,364 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.044s]
+2025-10-07 13:16:51,482 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.101s]
+2025-10-07 13:16:51,618 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.129s]
+2025-10-07 13:16:51,644 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 13:17:52,662 - src.alerts.alert_engine - ERROR - Dashboard alert storage failed: Object of type Decimal is not JSON serializable
+2025-10-07 13:17:52,662 - src.monitoring.system_monitor - WARNING - 🚨 ALERT: Only 0.0 articles processed in last hour (threshold: 10.0)
+2025-10-07 13:17:52,683 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.014s]
+2025-10-07 13:17:52,728 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.008s]
+2025-10-07 13:17:52,737 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.008s]
+2025-10-07 13:17:52,753 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.016s]
+2025-10-07 13:17:52,759 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 13:18:53,770 - src.alerts.alert_engine - ERROR - Dashboard alert storage failed: Object of type Decimal is not JSON serializable
+2025-10-07 13:18:53,770 - src.monitoring.system_monitor - WARNING - 🚨 ALERT: Only 0.0 articles processed in last hour (threshold: 10.0)
+2025-10-07 13:18:53,780 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.006s]
+2025-10-07 13:18:53,814 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.003s]
+2025-10-07 13:18:53,819 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.004s]
+2025-10-07 13:18:53,827 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.007s]
+2025-10-07 13:18:53,829 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 13:19:54,840 - src.alerts.alert_engine - ERROR - Dashboard alert storage failed: Object of type Decimal is not JSON serializable
+2025-10-07 13:19:54,840 - src.monitoring.system_monitor - WARNING - 🚨 ALERT: Only 0.0 articles processed in last hour (threshold: 10.0)
+2025-10-07 13:19:54,852 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.005s]
+2025-10-07 13:19:54,894 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.008s]
+2025-10-07 13:19:54,901 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.006s]
+2025-10-07 13:19:54,911 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.010s]
+2025-10-07 13:19:54,914 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 13:20:55,925 - src.alerts.alert_engine - ERROR - Dashboard alert storage failed: Object of type Decimal is not JSON serializable
+2025-10-07 13:20:55,926 - src.monitoring.system_monitor - WARNING - 🚨 ALERT: Only 0.0 articles processed in last hour (threshold: 10.0)
+2025-10-07 13:20:55,934 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.006s]
+2025-10-07 13:20:55,976 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.005s]
+2025-10-07 13:20:55,985 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.009s]
+2025-10-07 13:20:55,995 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.009s]
+2025-10-07 13:20:55,998 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 13:21:57,007 - src.alerts.alert_engine - ERROR - Dashboard alert storage failed: Object of type Decimal is not JSON serializable
+2025-10-07 13:21:57,007 - src.alerts.alert_engine - ERROR - Dashboard alert storage failed: Object of type Decimal is not JSON serializable
+2025-10-07 13:21:57,008 - src.monitoring.system_monitor - WARNING - 🚨 ALERT: Memory usage is 91.7% (threshold: 90.0%)
+2025-10-07 13:21:57,008 - src.monitoring.system_monitor - WARNING - 🚨 ALERT: Only 0.0 articles processed in last hour (threshold: 10.0)
+2025-10-07 13:21:57,014 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.004s]
+2025-10-07 13:21:57,051 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.005s]
+2025-10-07 13:21:57,055 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.004s]
+2025-10-07 13:21:57,062 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.006s]
+2025-10-07 13:21:57,064 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 13:22:48,090 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 13:22:48] "GET /export HTTP/1.1" 200 -
+2025-10-07 13:22:49,389 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 13:22:49] "GET /api/stats/overview HTTP/1.1" 200 -
+2025-10-07 13:22:51,607 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 13:22:51] "GET /api/export/articles/csv?domain=&category=&date_from=2025-09-07&date_to=2025-10-07&min_quality=0&limit=1000 HTTP/1.1" 200 -
+2025-10-07 13:22:58,075 - src.alerts.alert_engine - ERROR - Dashboard alert storage failed: Object of type Decimal is not JSON serializable
+2025-10-07 13:22:58,075 - src.alerts.alert_engine - ERROR - Dashboard alert storage failed: Object of type Decimal is not JSON serializable
+2025-10-07 13:22:58,076 - src.monitoring.system_monitor - WARNING - 🚨 ALERT: Memory usage is 92.3% (threshold: 90.0%)
+2025-10-07 13:22:58,076 - src.monitoring.system_monitor - WARNING - 🚨 ALERT: Only 0.0 articles processed in last hour (threshold: 10.0)
+2025-10-07 13:22:58,087 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.004s]
+2025-10-07 13:22:58,123 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.006s]
+2025-10-07 13:22:58,129 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.006s]
+2025-10-07 13:22:58,136 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.007s]
+2025-10-07 13:22:58,138 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 13:23:21,703 - src.api.data_exporter - ERROR - Analytics report export failed: Object of type Decimal is not JSON serializable
+2025-10-07 13:23:21,705 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 13:23:21] "[31m[1mGET /api/export/analytics?days=7 HTTP/1.1[0m" 400 -
+2025-10-07 13:23:59,154 - src.alerts.alert_engine - ERROR - Dashboard alert storage failed: Object of type Decimal is not JSON serializable
+2025-10-07 13:23:59,155 - src.monitoring.system_monitor - WARNING - 🚨 ALERT: Only 0.0 articles processed in last hour (threshold: 10.0)
+2025-10-07 13:23:59,164 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.005s]
+2025-10-07 13:23:59,199 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.007s]
+2025-10-07 13:23:59,205 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.006s]
+2025-10-07 13:23:59,215 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.009s]
+2025-10-07 13:23:59,217 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 13:25:00,233 - src.alerts.alert_engine - ERROR - Dashboard alert storage failed: Object of type Decimal is not JSON serializable
+2025-10-07 13:25:00,233 - src.monitoring.system_monitor - WARNING - 🚨 ALERT: Only 0.0 articles processed in last hour (threshold: 10.0)
+2025-10-07 13:25:00,253 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.012s]
+2025-10-07 13:25:00,298 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.006s]
+2025-10-07 13:25:00,304 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.005s]
+2025-10-07 13:25:00,313 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.008s]
+2025-10-07 13:25:00,315 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 13:26:01,324 - src.alerts.alert_engine - ERROR - Dashboard alert storage failed: Object of type Decimal is not JSON serializable
+2025-10-07 13:26:01,324 - src.monitoring.system_monitor - WARNING - 🚨 ALERT: Only 0.0 articles processed in last hour (threshold: 10.0)
+2025-10-07 13:26:01,332 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.005s]
+2025-10-07 13:26:01,376 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.005s]
+2025-10-07 13:26:01,386 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.010s]
+2025-10-07 13:26:01,393 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.007s]
+2025-10-07 13:26:01,395 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 13:27:02,404 - src.alerts.alert_engine - ERROR - Dashboard alert storage failed: Object of type Decimal is not JSON serializable
+2025-10-07 13:27:02,404 - src.monitoring.system_monitor - WARNING - 🚨 ALERT: Only 0.0 articles processed in last hour (threshold: 10.0)
+2025-10-07 13:27:02,413 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.005s]
+2025-10-07 13:27:02,465 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.006s]
+2025-10-07 13:27:02,470 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.005s]
+2025-10-07 13:27:02,479 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.008s]
+2025-10-07 13:27:02,481 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 13:28:03,490 - src.alerts.alert_engine - ERROR - Dashboard alert storage failed: Object of type Decimal is not JSON serializable
+2025-10-07 13:28:03,491 - src.monitoring.system_monitor - WARNING - 🚨 ALERT: Only 0.0 articles processed in last hour (threshold: 10.0)
+2025-10-07 13:28:03,525 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.029s]
+2025-10-07 13:28:03,638 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.009s]
+2025-10-07 13:28:03,645 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.008s]
+2025-10-07 13:28:03,654 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.009s]
+2025-10-07 13:28:03,658 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 13:29:04,666 - src.alerts.alert_engine - ERROR - Dashboard alert storage failed: Object of type Decimal is not JSON serializable
+2025-10-07 13:29:04,667 - src.monitoring.system_monitor - WARNING - 🚨 ALERT: Only 0.0 articles processed in last hour (threshold: 10.0)
+2025-10-07 13:29:04,676 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.007s]
+2025-10-07 13:29:04,718 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.004s]
+2025-10-07 13:29:04,723 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.005s]
+2025-10-07 13:29:04,729 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.005s]
+2025-10-07 13:29:04,731 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 13:30:05,741 - src.alerts.alert_engine - ERROR - Dashboard alert storage failed: Object of type Decimal is not JSON serializable
+2025-10-07 13:30:05,741 - src.monitoring.system_monitor - WARNING - 🚨 ALERT: Only 0.0 articles processed in last hour (threshold: 10.0)
+2025-10-07 13:30:05,750 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.005s]
+2025-10-07 13:30:05,799 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.004s]
+2025-10-07 13:30:05,806 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.005s]
+2025-10-07 13:30:05,813 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.008s]
+2025-10-07 13:30:05,815 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 13:31:06,831 - src.alerts.alert_engine - ERROR - Dashboard alert storage failed: Object of type Decimal is not JSON serializable
+2025-10-07 13:31:06,834 - src.monitoring.system_monitor - WARNING - 🚨 ALERT: Only 0.0 articles processed in last hour (threshold: 10.0)
+2025-10-07 13:31:06,854 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.008s]
+2025-10-07 13:31:07,184 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.069s]
+2025-10-07 13:31:07,200 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.014s]
+2025-10-07 13:31:07,218 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.012s]
+2025-10-07 13:31:07,225 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 13:32:08,241 - src.alerts.alert_engine - ERROR - Dashboard alert storage failed: Object of type Decimal is not JSON serializable
+2025-10-07 13:32:08,241 - src.monitoring.system_monitor - WARNING - 🚨 ALERT: Only 0.0 articles processed in last hour (threshold: 10.0)
+2025-10-07 13:32:08,251 - elastic_transport.transport - INFO - HEAD http://localhost:9200/ [status:200 duration:0.006s]
+2025-10-07 13:32:08,306 - elastic_transport.transport - INFO - GET http://localhost:9200/ [status:200 duration:0.007s]
+2025-10-07 13:32:08,312 - elastic_transport.transport - INFO - GET http://localhost:9200/_cluster/health [status:200 duration:0.005s]
+2025-10-07 13:32:08,317 - elastic_transport.transport - INFO - GET http://localhost:9200/news-articles/_stats [status:200 duration:0.005s]
+2025-10-07 13:32:08,319 - src.monitoring.system_monitor - ERROR - Monitoring data storage error: Object of type Decimal is not JSON serializable
+2025-10-07 13:32:28,287 - src.api.data_exporter - ERROR - Analytics report export failed: Object of type Decimal is not JSON serializable
+2025-10-07 13:32:28,288 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 13:32:28] "[31m[1mGET /api/export/analytics?days=7 HTTP/1.1[0m" 400 -

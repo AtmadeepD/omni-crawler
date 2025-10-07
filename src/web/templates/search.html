@@ -1,0 +1,532 @@
+{% extends "base.html" %}
+
+{% block title %}Advanced Search - OmniCrawler{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col">
+        <h1><i class="fas fa-search"></i> Advanced Search</h1>
+        <p class="text-muted">Powerful search across all articles with advanced filters</p>
+    </div>
+</div>
+
+<!-- Search Form -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <form id="search-form">
+                    <div class="row g-3">
+                        <!-- Search Query -->
+                        <div class="col-12">
+                            <label for="search-query" class="form-label">Search Query</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="search-query" 
+                                       placeholder="Enter keywords, phrases, or natural language...">
+                                <button class="btn btn-primary" type="submit">
+                                    <i class="fas fa-search"></i> Search
+                                </button>
+                            </div>
+                            <div class="form-check mt-2">
+                                <input class="form-check-input" type="checkbox" id="exact-match">
+                                <label class="form-check-label" for="exact-match">
+                                    Exact match
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Filters Row -->
+                        <div class="col-md-6">
+                            <label class="form-label">Domains</label>
+                            <div id="domain-filters" class="filter-checkboxes">
+                                <!-- Dynamically populated -->
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">Categories</label>
+                            <div id="category-filters" class="filter-checkboxes">
+                                <div class="form-check">
+                                    <input class="form-check-input domain-filter" type="checkbox" value="politics" id="cat-politics">
+                                    <label class="form-check-label" for="cat-politics">Politics</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input domain-filter" type="checkbox" value="sports" id="cat-sports">
+                                    <label class="form-check-label" for="cat-sports">Sports</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input domain-filter" type="checkbox" value="technology" id="cat-technology">
+                                    <label class="form-check-label" for="cat-technology">Technology</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input domain-filter" type="checkbox" value="business" id="cat-business">
+                                    <label class="form-check-label" for="cat-business">Business</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input domain-filter" type="checkbox" value="health" id="cat-health">
+                                    <label class="form-check-label" for="cat-health">Health</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input domain-filter" type="checkbox" value="entertainment" id="cat-entertainment">
+                                    <label class="form-check-label" for="cat-entertainment">Entertainment</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- More Filters -->
+                        <div class="col-md-4">
+                            <label for="quality-filter" class="form-label">Minimum Quality</label>
+                            <select class="form-select" id="quality-filter">
+                                <option value="0">Any Quality</option>
+                                <option value="80">High (80+)</option>
+                                <option value="60">Medium (60+)</option>
+                                <option value="40">Low (40+)</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label for="sentiment-filter" class="form-label">Sentiment</label>
+                            <select class="form-select" id="sentiment-filter">
+                                <option value="">Any Sentiment</option>
+                                <option value="positive">Positive</option>
+                                <option value="neutral">Neutral</option>
+                                <option value="negative">Negative</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label for="sort-by" class="form-label">Sort By</label>
+                            <select class="form-select" id="sort-by">
+                                <option value="relevance">Relevance</option>
+                                <option value="date">Date (Newest First)</option>
+                                <option value="quality">Quality Score</option>
+                                <option value="length">Content Length</option>
+                            </select>
+                        </div>
+
+                        <!-- Date Range -->
+                        <div class="col-md-6">
+                            <label for="date-from" class="form-label">Date From</label>
+                            <input type="date" class="form-control" id="date-from">
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="date-to" class="form-label">Date To</label>
+                            <input type="date" class="form-control" id="date-to">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Search Results -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-search"></i> Search Results
+                    <span id="results-count" class="badge bg-primary ms-2">-</span>
+                </h5>
+                <div class="btn-group">
+                    <button class="btn btn-sm btn-outline-secondary" onclick="clearFilters()">
+                        <i class="fas fa-times"></i> Clear Filters
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                <!-- Faceted Search Sidebar -->
+                <div class="row">
+                    <div class="col-md-3">
+                        <div id="search-facets" class="search-facets">
+                            <!-- Facets will be populated here -->
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-9">
+                        <div id="search-results">
+                            <div class="text-center text-muted py-5">
+                                <i class="fas fa-search fa-3x mb-3"></i>
+                                <p>Enter a search query to find articles</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Pagination -->
+                        <nav class="mt-4">
+                            <ul class="pagination justify-content-center" id="search-pagination">
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+let currentSearchPage = 1;
+const searchPageSize = 10;
+
+document.getElementById('search-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    performSearch();
+});
+
+function performSearch(page = 1) {
+    currentSearchPage = page;
+    
+    const searchParams = {
+        q: document.getElementById('search-query').value,
+        domains: getSelectedValues('domain-filters'),
+        categories: getSelectedValues('category-filters'),
+        date_from: document.getElementById('date-from').value,
+        date_to: document.getElementById('date-to').value,
+        min_quality: document.getElementById('quality-filter').value,
+        sentiment: document.getElementById('sentiment-filter').value,
+        sort_by: document.getElementById('sort-by').value,
+        exact_match: document.getElementById('exact-match').checked,
+        size: searchPageSize,
+        from: (page - 1) * searchPageSize
+    };
+
+    // Show loading
+    document.getElementById('search-results').innerHTML = `
+        <div class="text-center py-4">
+            <div class="spinner-border" role="status">
+                <span class="visually-hidden">Searching...</span>
+            </div>
+            <p class="mt-2">Searching articles...</p>
+        </div>
+    `;
+
+    const queryString = new URLSearchParams();
+    Object.keys(searchParams).forEach(key => {
+        if (Array.isArray(searchParams[key])) {
+            searchParams[key].forEach(value => queryString.append(key, value));
+        } else if (searchParams[key]) {
+            queryString.append(key, searchParams[key]);
+        }
+    });
+
+    fetch(`/api/search/advanced?${queryString}`)
+        .then(response => response.json())
+        .then(data => {
+            displaySearchResults(data);
+            displaySearchFacets(data.aggregations);
+        })
+        .catch(error => {
+            console.error('Search error:', error);
+            document.getElementById('search-results').innerHTML = `
+                <div class="alert alert-danger">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    Error performing search. Please try again.
+                </div>
+            `;
+        });
+}
+
+function displaySearchResults(data) {
+    const resultsContainer = document.getElementById('search-results');
+    const resultsCount = document.getElementById('results-count');
+    
+    resultsCount.textContent = data.total.toLocaleString();
+    
+    if (data.articles.length === 0) {
+        resultsContainer.innerHTML = `
+            <div class="text-center text-muted py-5">
+                <i class="fas fa-search fa-3x mb-3"></i>
+                <h5>No articles found</h5>
+                <p>Try adjusting your search criteria or filters</p>
+            </div>
+        `;
+        document.getElementById('search-pagination').innerHTML = '';
+        return;
+    }
+
+    let resultsHtml = '';
+    
+    data.articles.forEach(article => {
+        const qualityClass = article.quality_score >= 80 ? 'quality-high' : 
+                           article.quality_score >= 60 ? 'quality-medium' : 'quality-low';
+        
+        const sentimentIcon = article.sentiment === 'positive' ? 'fa-smile text-success' :
+                            article.sentiment === 'negative' ? 'fa-frown text-danger' : 
+                            'fa-meh text-warning';
+
+        // Process highlights
+        let titleHtml = escapeHtml(article.title);
+        let contentHtml = article.content_preview;
+        
+        if (article.highlight && article.highlight.title) {
+            titleHtml = article.highlight.title[0];
+        }
+        if (article.highlight && article.highlight.content) {
+            contentHtml = article.highlight.content.join('...');
+        }
+
+        resultsHtml += `
+            <div class="card mb-3 ${qualityClass}">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <a href="${article.url}" target="_blank">${titleHtml}</a>
+                    </h5>
+                    
+                    <div class="article-meta mb-2">
+                        <span class="badge bg-secondary">${article.domain}</span>
+                        <span class="badge bg-info">${article.category}</span>
+                        <span class="badge ${getQualityBadgeClass(article.quality_score)}">
+                            Quality: ${article.quality_score}
+                        </span>
+                        <span class="sentiment-badge">
+                            <i class="fas ${sentimentIcon}"></i> ${article.sentiment}
+                        </span>
+                        <small class="text-muted">
+                            ${new Date(article.processing_timestamp).toLocaleDateString()}
+                        </small>
+                    </div>
+
+                    <p class="card-text">${contentHtml}</p>
+
+                    ${article.authors && article.authors.length > 0 ? `
+                        <p class="card-text">
+                            <small class="text-muted">
+                                <strong>Authors:</strong> ${article.authors.join(', ')}
+                            </small>
+                        </p>
+                    ` : ''}
+
+                    ${article.key_phrases && article.key_phrases.length > 0 ? `
+                        <div class="key-phrases">
+                            <strong>Key Phrases:</strong>
+                            ${article.key_phrases.map(phrase => 
+                                `<span class="badge bg-light text-dark">${escapeHtml(phrase)}</span>`
+                            ).join(' ')}
+                        </div>
+                    ` : ''}
+
+                    <div class="mt-2">
+                        <a href="${article.url}" target="_blank" class="btn btn-sm btn-primary">
+                            <i class="fas fa-external-link-alt"></i> Read Full Article
+                        </a>
+                        <span class="text-muted ms-2">
+                            <i class="fas fa-chart-bar"></i> Score: ${article.score.toFixed(2)}
+                        </span>
+                    </div>
+                </div>
+            </div>
+        `;
+    });
+
+    resultsContainer.innerHTML = resultsHtml;
+    renderSearchPagination(data.total, data.search_params);
+}
+
+function displaySearchFacets(aggregations) {
+    const facetsContainer = document.getElementById('search-facets');
+    
+    let facetsHtml = '<h6>Filter Results</h6>';
+    
+    // Domain facets
+    if (aggregations.domains && aggregations.domains.length > 0) {
+        facetsHtml += `
+            <div class="facet-group">
+                <strong>Domains</strong>
+                ${aggregations.domains.map(domain => `
+                    <div class="form-check">
+                        <input class="form-check-input facet-checkbox" type="checkbox" 
+                               value="${domain.key}" id="facet-domain-${domain.key}">
+                        <label class="form-check-label" for="facet-domain-${domain.key}">
+                            ${domain.key} (${domain.count})
+                        </label>
+                    </div>
+                `).join('')}
+            </div>
+            <hr>
+        `;
+    }
+
+    // Category facets
+    if (aggregations.categories && aggregations.categories.length > 0) {
+        facetsHtml += `
+            <div class="facet-group">
+                <strong>Categories</strong>
+                ${aggregations.categories.map(cat => `
+                    <div class="form-check">
+                        <input class="form-check-input facet-checkbox" type="checkbox" 
+                               value="${cat.key}" id="facet-cat-${cat.key}">
+                        <label class="form-check-label" for="facet-cat-${cat.key}">
+                            ${cat.key} (${cat.count})
+                        </label>
+                    </div>
+                `).join('')}
+            </div>
+            <hr>
+        `;
+    }
+
+    // Sentiment facets
+    if (aggregations.sentiments && aggregations.sentiments.length > 0) {
+        facetsHtml += `
+            <div class="facet-group">
+                <strong>Sentiment</strong>
+                ${aggregations.sentiments.map(sent => `
+                    <div class="form-check">
+                        <input class="form-check-input facet-checkbox" type="checkbox" 
+                               value="${sent.key}" id="facet-sent-${sent.key}">
+                        <label class="form-check-label" for="facet-sent-${sent.key}">
+                            ${sent.key} (${sent.count})
+                        </label>
+                    </div>
+                `).join('')}
+            </div>
+        `;
+    }
+
+    facetsContainer.innerHTML = facetsHtml;
+
+    // Add event listeners to facet checkboxes
+    document.querySelectorAll('.facet-checkbox').forEach(checkbox => {
+        checkbox.addEventListener('change', performSearch);
+    });
+}
+
+function renderSearchPagination(total, params) {
+    const paginationEl = document.getElementById('search-pagination');
+    const totalPages = Math.ceil(total / searchPageSize);
+    
+    if (totalPages <= 1) {
+        paginationEl.innerHTML = '';
+        return;
+    }
+
+    let paginationHtml = '';
+    
+    // Previous button
+    paginationHtml += `
+        <li class="page-item ${currentSearchPage === 1 ? 'disabled' : ''}">
+            <a class="page-link" href="#" onclick="performSearch(${currentSearchPage - 1})">Previous</a>
+        </li>
+    `;
+    
+    // Page numbers
+    const startPage = Math.max(1, currentSearchPage - 2);
+    const endPage = Math.min(totalPages, currentSearchPage + 2);
+    
+    for (let i = startPage; i <= endPage; i++) {
+        paginationHtml += `
+            <li class="page-item ${i === currentSearchPage ? 'active' : ''}">
+                <a class="page-link" href="#" onclick="performSearch(${i})">${i}</a>
+            </li>
+        `;
+    }
+    
+    // Next button
+    paginationHtml += `
+        <li class="page-item ${currentSearchPage === totalPages ? 'disabled' : ''}">
+            <a class="page-link" href="#" onclick="performSearch(${currentSearchPage + 1})">Next</a>
+        </li>
+    `;
+    
+    paginationEl.innerHTML = paginationHtml;
+}
+
+function getSelectedValues(containerId) {
+    const checkboxes = document.querySelectorAll(`#${containerId} input:checked`);
+    return Array.from(checkboxes).map(cb => cb.value);
+}
+
+function clearFilters() {
+    // Clear all checkboxes
+    document.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
+    
+    // Clear selects
+    document.getElementById('quality-filter').value = '0';
+    document.getElementById('sentiment-filter').value = '';
+    document.getElementById('sort-by').value = 'relevance';
+    document.getElementById('exact-match').checked = false;
+    
+    // Clear dates
+    document.getElementById('date-from').value = '';
+    document.getElementById('date-to').value = '';
+    
+    // Clear search
+    document.getElementById('search-query').value = '';
+    document.getElementById('search-results').innerHTML = `
+        <div class="text-center text-muted py-5">
+            <i class="fas fa-search fa-3x mb-3"></i>
+            <p>Enter a search query to find articles</p>
+        </div>
+    `;
+    document.getElementById('results-count').textContent = '-';
+}
+
+function getQualityBadgeClass(score) {
+    if (score >= 80) return 'bg-success';
+    if (score >= 60) return 'bg-warning';
+    return 'bg-danger';
+}
+
+function escapeHtml(unsafe) {
+    return unsafe
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
+// Load domain filters on page load
+document.addEventListener('DOMContentLoaded', function() {
+    fetch('/api/stats/overview')
+        .then(response => response.json())
+        .then(data => {
+            const domainContainer = document.getElementById('domain-filters');
+            Object.keys(data.categories || {}).forEach(domain => {
+                domainContainer.innerHTML += `
+                    <div class="form-check">
+                        <input class="form-check-input domain-filter" type="checkbox" 
+                               value="${domain}" id="domain-${domain}">
+                        <label class="form-check-label" for="domain-${domain}">
+                            ${domain}
+                        </label>
+                    </div>
+                `;
+            });
+        });
+});
+</script>
+
+<style>
+.search-facets {
+    background: #f8f9fa;
+    padding: 1rem;
+    border-radius: 0.375rem;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+.facet-group {
+    margin-bottom: 1rem;
+}
+.facet-group strong {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #495057;
+}
+.article-meta .badge {
+    margin-right: 0.25rem;
+    margin-bottom: 0.25rem;
+}
+.key-phrases {
+    margin-top: 0.5rem;
+}
+.key-phrases .badge {
+    margin-right: 0.25rem;
+    margin-bottom: 0.25rem;
+    font-size: 0.7rem;
+}
+</style>
+{% endblock %}

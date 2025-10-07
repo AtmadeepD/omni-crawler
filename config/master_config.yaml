@@ -1,0 +1,39 @@
+app:
+  name: "omni-crawler"
+  version: "1.0.0"
+  debug: true
+
+crawler:
+  max_concurrent_crawls: 5
+  request_timeout: 30
+  user_agent: "OmniCrawler/1.0 (+http://omnicroawler.com/bot)"
+  respect_robots_txt: true
+  crawl_interval_seconds: 300  # 5 minutes
+
+discovery:
+  rss_feeds:
+    - "https://rss.cnn.com/rss/edition.rss"
+    - "https://feeds.bbci.co.uk/news/rss.xml"
+    - "https://feeds.npr.org/1001/rss.xml"
+    - "https://www.reutersagency.com/feed/?best-topics=business-finance&post_type=best"
+  
+  monitored_domains:
+    - "bbc.com"
+    - "cnn.com" 
+    - "npr.org"
+    - "reuters.com"
+
+storage:
+  elasticsearch:
+    index: "news-articles"
+    batch_size: 100
+  
+  postgres:
+    table_articles: "articles"
+    table_entities: "article_entities"
+
+processing:
+  min_article_length: 200
+  enable_sentiment_analysis: true
+  enable_entity_extraction: true
+  enable_keyword_extraction: true

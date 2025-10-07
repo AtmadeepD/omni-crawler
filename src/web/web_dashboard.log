@@ -1,0 +1,19 @@
+2025-10-07 01:32:33,886 - __main__ - WARNING - Config load failed, using defaults: [Errno 2] No such file or directory: 'config/web_config.yaml'
+2025-10-07 01:32:33,924 - __main__ - INFO - Database columns: ['created_at', 'publish_date', 'quality_score', 'processing_timestamp', 'authors', 'domain', 'crawler_engine', 'article_id', 'category', 'url', 'title', 'content']
+2025-10-07 01:32:33,925 - __main__ - INFO - 🚀 Starting OmniCrawler Web Dashboard on 0.0.0.0:5000
+2025-10-07 01:32:35,599 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.29.157:5000
+2025-10-07 01:32:35,600 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-10-07 01:33:07,128 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 01:33:07] "GET / HTTP/1.1" 200 -
+2025-10-07 01:33:08,394 - __main__ - WARNING - sentiment_label column not found, using default data
+2025-10-07 01:33:08,466 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 01:33:08] "GET /api/analytics/categories HTTP/1.1" 200 -
+2025-10-07 01:33:08,471 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 01:33:08] "GET /api/analytics/sentiment HTTP/1.1" 200 -
+2025-10-07 01:33:08,765 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 01:33:08] "GET /api/analytics/domains HTTP/1.1" 200 -
+2025-10-07 01:33:18,762 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 01:33:18] "[33mGET /articles HTTP/1.1[0m" 404 -
+2025-10-07 01:34:17,830 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 01:34:17] "GET / HTTP/1.1" 200 -
+2025-10-07 01:34:18,693 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 01:34:18] "GET /api/analytics/categories HTTP/1.1" 200 -
+2025-10-07 01:34:18,986 - __main__ - WARNING - sentiment_label column not found, using default data
+2025-10-07 01:34:18,993 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 01:34:18] "GET /api/analytics/sentiment HTTP/1.1" 200 -
+2025-10-07 01:34:19,007 - werkzeug - INFO - 127.0.0.1 - - [07/Oct/2025 01:34:19] "GET /api/analytics/domains HTTP/1.1" 200 -

@@ -1,0 +1,371 @@
+{% extends "base.html" %}
+
+{% block title %}Alert Management - OmniCrawler{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col">
+        <h1><i class="fas fa-bell"></i> Alert Management</h1>
+        <p class="text-muted">Monitor and manage system alerts and notifications</p>
+    </div>
+</div>
+
+<!-- Alert Statistics -->
+<div class="row mb-4">
+    <div class="col-md-2">
+        <div class="card text-white bg-primary">
+            <div class="card-body text-center">
+                <h3 id="total-alerts">-</h3>
+                <p class="card-text">Total Alerts</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="card text-white bg-danger">
+            <div class="card-body text-center">
+                <h3 id="critical-alerts">-</h3>
+                <p class="card-text">Critical</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="card text-white bg-warning">
+            <div class="card-body text-center">
+                <h3 id="warning-alerts">-</h3>
+                <p class="card-text">Warnings</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="card text-white bg-info">
+            <div class="card-body text-center">
+                <h3 id="info-alerts">-</h3>
+                <p class="card-text">Info</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="card text-white bg-secondary">
+            <div class="card-body text-center">
+                <h3 id="unacknowledged-alerts">-</h3>
+                <p class="card-text">Unacknowledged</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="card bg-light">
+            <div class="card-body text-center">
+                <button class="btn btn-primary" onclick="loadAlerts()">
+                    <i class="fas fa-sync-alt"></i> Refresh
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Alert Rules -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-cog"></i> Alert Rules
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Rule Name</th>
+                                <th>Metric</th>
+                                <th>Condition</th>
+                                <th>Threshold</th>
+                                <th>Severity</th>
+                                <th>Status</th>
+                                <th>Last Triggered</th>
+                            </tr>
+                        </thead>
+                        <tbody id="alert-rules">
+                            <tr>
+                                <td colspan="7" class="text-center">
+                                    <div class="spinner-border" role="status">
+                                        <span class="visually-hidden">Loading rules...</span>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Recent Alerts -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-history"></i> Recent Alerts
+                </h5>
+                <div class="btn-group">
+                    <button class="btn btn-sm btn-outline-success" onclick="acknowledgeAll()">
+                        <i class="fas fa-check-double"></i> Acknowledge All
+                    </button>
+                    <button class="btn btn-sm btn-outline-danger" onclick="clearAlerts()">
+                        <i class="fas fa-trash"></i> Clear All
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                <div id="alerts-list">
+                    <div class="text-center">
+                        <div class="spinner-border" role="status">
+                            <span class="visually-hidden">Loading alerts...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+const ALERT_REFRESH_INTERVAL = 30000; // 30 seconds
+let alertRefreshInterval;
+
+document.addEventListener('DOMContentLoaded', function() {
+    loadAlertStats();
+    loadAlertRules();
+    loadAlerts();
+    startAlertRefresh();
+});
+
+function startAlertRefresh() {
+    alertRefreshInterval = setInterval(() => {
+        loadAlertStats();
+        loadAlerts();
+    }, ALERT_REFRESH_INTERVAL);
+}
+
+function stopAlertRefresh() {
+    if (alertRefreshInterval) {
+        clearInterval(alertRefreshInterval);
+    }
+}
+
+function loadAlertStats() {
+    fetch('/api/alerts/stats')
+        .then(response => response.json())
+        .then(stats => {
+            document.getElementById('total-alerts').textContent = stats.total || 0;
+            document.getElementById('critical-alerts').textContent = stats.critical || 0;
+            document.getElementById('warning-alerts').textContent = stats.warning || 0;
+            document.getElementById('info-alerts').textContent = stats.info || 0;
+            document.getElementById('unacknowledged-alerts').textContent = stats.unacknowledged || 0;
+        })
+        .catch(error => {
+            console.error('Error loading alert stats:', error);
+        });
+}
+
+function loadAlertRules() {
+    // For now, we'll use static rules. In production, this would come from an API
+    const rules = [
+        {
+            name: "High CPU Usage",
+            metric: "system.cpu_percent",
+            condition: ">",
+            threshold: "85%",
+            severity: "warning",
+            status: "active",
+            lastTriggered: "2024-01-07 10:30:00"
+        },
+        {
+            name: "High Memory Usage",
+            metric: "system.memory_percent", 
+            condition: ">",
+            threshold: "90%",
+            severity: "warning",
+            status: "active",
+            lastTriggered: "2024-01-07 09:15:00"
+        },
+        {
+            name: "Crawl Failure Rate",
+            metric: "application.crawl_success_rate",
+            condition: "<",
+            threshold: "80%",
+            severity: "error",
+            status: "active",
+            lastTriggered: "2024-01-06 14:20:00"
+        },
+        {
+            name: "Low Article Volume",
+            metric: "database.recent_articles_1h",
+            condition: "<", 
+            threshold: "10",
+            severity: "warning",
+            status: "active",
+            lastTriggered: null
+        }
+    ];
+
+    let rulesHtml = '';
+    rules.forEach(rule => {
+        const severityClass = rule.severity === 'critical' ? 'danger' : 
+                            rule.severity === 'error' ? 'danger' :
+                            rule.severity === 'warning' ? 'warning' : 'info';
+        
+        const statusBadge = rule.status === 'active' ? 
+            '<span class="badge bg-success">Active</span>' : 
+            '<span class="badge bg-secondary">Inactive</span>';
+
+        rulesHtml += `
+            <tr>
+                <td><strong>${rule.name}</strong></td>
+                <td><code>${rule.metric}</code></td>
+                <td>${rule.condition} ${rule.threshold}</td>
+                <td><span class="badge bg-${severityClass}">${rule.severity}</span></td>
+                <td>${statusBadge}</td>
+                <td>${rule.lastTriggered ? new Date(rule.lastTriggered).toLocaleString() : 'Never'}</td>
+            </tr>
+        `;
+    });
+
+    document.getElementById('alert-rules').innerHTML = rulesHtml;
+}
+
+function loadAlerts() {
+    fetch('/api/alerts?limit=50')
+        .then(response => response.json())
+        .then(data => {
+            const alertsContainer = document.getElementById('alerts-list');
+            
+            if (!data.alerts || data.alerts.length === 0) {
+                alertsContainer.innerHTML = `
+                    <div class="text-center text-muted py-5">
+                        <i class="fas fa-check-circle fa-3x mb-3"></i>
+                        <h5>No Active Alerts</h5>
+                        <p>All systems are operating normally</p>
+                    </div>
+                `;
+                return;
+            }
+
+            let alertsHtml = '';
+            data.alerts.forEach(alert => {
+                const alertClass = alert.severity === 'critical' ? 'alert-danger' :
+                                alert.severity === 'error' ? 'alert-danger' :
+                                alert.severity === 'warning' ? 'alert-warning' : 'alert-info';
+                
+                const icon = alert.severity === 'critical' ? 'fa-exclamation-triangle' :
+                           alert.severity === 'error' ? 'fa-times-circle' :
+                           alert.severity === 'warning' ? 'fa-exclamation-triangle' : 'fa-info-circle';
+
+                const acknowledgedBadge = alert.acknowledged ? 
+                    '<span class="badge bg-success ms-2"><i class="fas fa-check"></i> Acknowledged</span>' : '';
+
+                alertsHtml += `
+                    <div class="alert ${alertClass} alert-dismissible">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div class="flex-grow-1">
+                                <h5 class="alert-heading">
+                                    <i class="fas ${icon} me-2"></i>
+                                    ${alert.rule_name}
+                                    ${acknowledgedBadge}
+                                </h5>
+                                <p class="mb-1">${alert.message}</p>
+                                <div class="alert-details mt-2">
+                                    <small class="text-muted">
+                                        <strong>Current:</strong> ${alert.current_value} | 
+                                        <strong>Threshold:</strong> ${alert.threshold} |
+                                        <strong>Triggered:</strong> ${new Date(alert.timestamp).toLocaleString()}
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="ms-3">
+                                ${!alert.acknowledged ? `
+                                    <button class="btn btn-sm btn-success" onclick="acknowledgeAlert('${alert.id}')">
+                                        <i class="fas fa-check"></i> Ack
+                                    </button>
+                                ` : ''}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            alertsContainer.innerHTML = alertsHtml;
+        })
+        .catch(error => {
+            console.error('Error loading alerts:', error);
+            document.getElementById('alerts-list').innerHTML = `
+                <div class="alert alert-danger">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    Error loading alerts: ${error.message}
+                </div>
+            `;
+        });
+}
+
+function acknowledgeAlert(alertId) {
+    fetch(`/api/alerts/${alertId}/acknowledge`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 'acknowledged') {
+            loadAlerts();
+            loadAlertStats();
+        }
+    })
+    .catch(error => {
+        console.error('Error acknowledging alert:', error);
+        alert('Failed to acknowledge alert: ' + error.message);
+    });
+}
+
+function acknowledgeAll() {
+    if (confirm('Are you sure you want to acknowledge all alerts?')) {
+        // This would typically call a bulk acknowledge API
+        alert('This feature would acknowledge all alerts in a production system.');
+    }
+}
+
+function clearAlerts() {
+    if (confirm('Are you sure you want to clear all alerts? This cannot be undone.')) {
+        // This would typically call a clear alerts API
+        alert('This feature would clear all alerts in a production system.');
+    }
+}
+
+// Cleanup on page unload
+window.addEventListener('beforeunload', stopAlertRefresh);
+</script>
+
+<style>
+.alert {
+    border-left: 4px solid;
+}
+.alert-danger {
+    border-left-color: #dc3545;
+}
+.alert-warning {
+    border-left-color: #ffc107;
+}
+.alert-info {
+    border-left-color: #0dcaf0;
+}
+.alert-dismissible .btn-close {
+    padding: 0.75rem 0.25rem;
+}
+</style>
+{% endblock %}

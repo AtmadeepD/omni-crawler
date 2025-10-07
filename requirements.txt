@@ -1,0 +1,35 @@
+news-please==1.6.16
+scrapy==2.8.0
+newspaper4k==0.9.3.1
+elasticsearch==8.5.0
+psycopg2-binary==2.9.5
+redis==4.5.4
+aiohttp==3.8.4
+asyncio==3.4.3
+feedparser==6.0.10
+spacy==3.5.0
+textblob==0.17.1
+nltk==3.8.1
+transformers==4.25.1
+pyyaml==6.0
+beautifulsoup4==4.12.0
+urllib3==1.26.14
+numpy==1.26.4
+scipy==1.11.4
+torch==2.0.1
+torchaudio==2.0.2
+numba==0.58.1
+
+# Web Framework
+flask==2.3.3
+flask-cors==4.0.0
+flask-limiter==3.3.0
+
+# Monitoring & Logging
+prometheus-client==0.17.1
+blinker==1.6.3
+
+# Data Visualization
+plotly==5.15.0
+pandas==2.1.1
+psutil==5.9.5
